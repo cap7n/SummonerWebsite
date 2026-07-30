@@ -1,0 +1,56 @@
+site_name: Summoner Design Wiki
+site_url: https://cap7n.github.io/summoner-docs/
+site_description: Design wiki and single point of truth for Summoner, a co-op horde-control roguelite built in Godot.
+repo_url: https://github.com/cap7n/summoner-docs
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: green
+    accent: amber
+  font:
+    text: Inter
+    code: JetBrains Mono
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.action.edit
+    - toc.follow
+
+markdown_extensions:
+  - admonition
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Home: index.md
+  - Design Pillars: pillars.md
+  - The Game:
+      - The Bubble (Horde Control): game/bubble.md
+      - The Summoner: game/summoner.md
+      - Combat: game/combat.md
+      - Items & Equipment: game/items.md
+      - Runs, Maps & the Roguelite Loop: game/runs.md
+      - Co-op: game/coop.md
+  - Tech:
+      - Engine & Prototype Workflow: tech/engine.md
+  - Project:
+      - Open Questions: project/open-questions.md
+      - Backlog: project/backlog.md
+      - Decision Log: project/decisions.md
+      - How to Edit This Wiki: project/how-to-edit.md
