@@ -5,7 +5,7 @@ The single point of truth for **Summoner**: design, systems, and project state.
 Source is plain Markdown in `docs/`. Push to `main` and GitHub Actions rebuilds and
 deploys the site in ~1 minute (see `.github/workflows/deploy.yml`).
 
-Live site: https://cap7n.github.io/summoner-docs/ *(after the GitHub repo + Pages are set up)*
+Live site: https://cap7n.github.io/SummonerWebsite/
 
 ## Edit locally (optional)
 
