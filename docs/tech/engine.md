@@ -13,10 +13,12 @@
 | `Summoner/Summoner Marketing/`, `Summoner builds/` | Non-code siblings |
 | `Desktop/OTR/` | **Sibling project** — the 2-player co-op car game whose network stack Summoner reuses ([Networking](networking.md)) |
 
-The PoC repo has two branches:
+The PoC repo has two branches, both now **historical**:
 
 - **`main`** — click-to-move system only (the original PoC).
-- **`experiment/alt-system`** — the stretch/pod system, plus click-to-move restored behind the **F1 A/B toggle**. This is where active work happens.
+- **`experiment/alt-system`** — the stretch/pod system plus click-to-move behind the **F1 A/B toggle**.
+
+Both control schemes were [parked on 2026-07-30](../game/bubble.md#parked-prototype-systems) when the bubble was simplified to a passive aura. Keep the branches — the code is the only record of how those systems actually played, and they're the drawer to reach into if the simplified bubble feels flat.
 
 ## Prototype verification workflow
 
@@ -39,10 +41,15 @@ Scripted tests have been used to verify: troop scatter stays in-bounds and separ
 
 The current code is a **disposable proof of concept** (one ~600-line `troop_bubble.gd` doing formation, movement, combat, two control schemes, and rendering). After the A/B verdict, the plan is a deliberate rebuild on an architecture the developer understands and co-designs — roughly: unit brain / formation shape / commander / renderer as separate pieces, with simulation state separated from control input for [co-op](../game/coop.md)'s sake.
 
-Two co-op decisions now constrain that rebuild before it starts:
+Constraints the rebuild inherits before it starts:
 
 - **4 players → 200+ troops**, so spatial partitioning for separation and targeting is a requirement, not an optimisation.
 - **Troops must be describable on the wire.** The [troop-sync spike](networking.md#the-troop-sync-problem) runs *before* the architecture locks, because "entity or particle?" changes the shape of every piece above.
+- **The commander layer just got small.** With no move orders or stretching, "bubble control" is a follow-the-summoner formation solver. The complexity moved up to the map layer: [caravan](../game/caravan.md) pathing, [fog](../game/runs.md#fog-of-war) grid, [POI](../game/runs.md#pois) state machines.
+- **New systems the PoC has never touched:** fog of war on a big map, pathfinding at map scale, a hub scene with persistent save state ([Graveyard](../game/graveyard.md)), and a save format for tombstone levels. These are the real unknowns now — the troop layer is the solved part.
+
+!!! note "Godot pieces this implies"
+    Large maps mean the arena's single flat plane stops being enough: navigation meshes for caravan/enemy pathing, level streaming or chunking if maps get genuinely big, and a fog implementation (viewport-texture mask over the terrain shader is the usual cheap answer, and it composes with the existing `grid.gdshader` work). None of it is exotic; all of it is new to this project.
 
 !!! note "Editor-conflict rule"
     Don't edit a `.tscn`/`.tres` from tooling while it's open in the Godot editor — the editor clobbers it on save. Close the scene first or hand over the change as steps.

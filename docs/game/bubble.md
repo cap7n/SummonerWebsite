@@ -1,51 +1,67 @@
 # The Bubble (Horde Control)
 
-The core verb of Summoner. The bubble is a circular formation of troops (currently 50) that trails the summoner. It is the *only* way the player commands the army.
+Your army travels as a **bubble around your summoner**. That's it — the bubble is not steered, ordered, or shaped. Where you walk, it goes; what it touches, it fights.
 
-## Invariants (decided, both control schemes)
+!!! note "Scope decision — 2026-07-30"
+    The bubble was deliberately **simplified**. Both prototype control schemes (click-to-move and the stretch/pod teardrop) are **parked**, and the F1 A/B test is closed without a winner. Keeping it simple *for now* — the interesting decisions have moved to unit composition ([Graveyard](graveyard.md)), the [caravan](caravan.md), and the [map layer](runs.md). The parked work is preserved below, because the findings survive even though the code doesn't.
 
-These hold no matter which control scheme wins the A/B:
+## What the bubble is now
 
-- **The bubble can never move faster than the summoner.** Its travel speed is capped at the summoner's own speed. No out-running your own army boundary.
-- **The summoner can never end up outside the bubble.** A hard leash: whatever the bubble is doing, it is dragged along before it may leave the summoner behind (margin ~0.75 units inside the edge).
-- **Troops walk, they don't teleport.** Returning to formation happens at walking speed (`regroup` walk, ~5 u/s with per-troop variance) — the squad's own travel is exempt so the formation keeps up with a sprinting summoner.
-- Troop scatter inside the disc is random but **relaxed apart** (min separation ~0.85) so it reads as a crowd, not a clump.
+- A circular formation of troops that **follows your summoner**, always. No move orders, no click targets, no stretching.
+- Troops hold scattered formation slots inside the disc; they walk (never teleport) back into place after a fight.
+- **Contact is combat.** Enemies that touch the bubble get fought. Positioning your body *is* your engagement decision.
+- The bubble's contents are not fixed: what's inside comes from the unit types you unlocked and summoned at the [Graveyard](graveyard.md).
 
-## The A/B test <span class="pill wip">WIP</span>
+## Invariants (unchanged, still binding)
 
-Two control schemes are implemented side by side in the prototype, toggled live with **F1** so they can be compared inside the same battle. **Right-click is "cancel" in both.**
+- **The bubble never moves faster than the summoner.** It has no independent travel speed at all now.
+- **The summoner can never end up outside the bubble.** Hard leash, ~0.75 units inside the edge.
+- **Troops walk, they don't teleport** (~5 u/s regroup with per-troop variance; the squad's own travel is exempt so formation keeps up with a sprint).
+- Scatter is random but **relaxed apart** (min separation ~0.85) so it reads as a crowd, not a clump.
 
-### System A — Click-move
+## What "horde control" means now
 
-Left-click sends the whole bubble marching to that spot (gold ring marker, constant march speed, still leashed and speed-capped). On arrival it **parks** and holds that ground until right-clicked (recall) or given a new order.
+With the shape locked, control lives in three other places — this is a real shift and worth naming:
 
-### System B — Stretch (the favoured direction)
+| Layer | Your decision |
+|---|---|
+| **Body** | Where you stand. The only way to commit or withhold force is to walk in or walk away. |
+| **Composition** | Which unit types you brought and levelled ([Graveyard](graveyard.md), [Items](items.md)) |
+| **Map** | Which [POI](runs.md) to take, and where the [caravan](caravan.md) goes — the shared, four-player layer |
 
-Hold left-click and the bubble **stretches a pod toward the cursor** — the outline becomes a teardrop (two circles joined by outer tangents), like a water drop being pulled.
+!!! warning "The honest risk"
+    A passive bubble means moment-to-moment play is *walking*. Whether that's enough tactile decision-making, or whether the map/caravan layer has to carry all the tension, is the thing to feel-test first. If it's flat, the parked systems below are the drawer to reach into — that's why they're parked and not deleted.
 
-- A floating counter **X / max** appears at the pod tip. X climbs while you hold: slowly at short reach (~2.5 troops/s), faster the further you stretch (~16/s at full reach, 22 units).
-- **X troops physically walk into the pod** as it fills; the nearest free troops are recruited first.
-- **Area is conserved**: disc + pod always sum to the resting circle's area, so committing troops visibly thins the main disc. (Total area becomes an upgradeable stat later.)
-- **Release** retracts the pod — *unless* it is touching an enemy bubble, in which case it **latches** and stays connected.
-- **Right-click breaks the connection** and the pod pulls back in.
-- When contact is pod-only, **only pod troops fight**; the main disc holds formation. The stretch is a probing weapon: poke with 10, hold 40 in reserve.
-- If a pod troop dies, a replacement is auto-recruited from the disc — a latched pod slowly drains your army until you break off.
+## Parked prototype systems <span class="pill parked">PARKED</span> {#parked-prototype-systems}
 
-!!! warning "Not decided — severing"
-    What happens if a stretched pod could be **cut loose** as its own group is deliberately open, with three candidate designs. See [Open Questions](../project/open-questions.md#severed-pods).
+Built, working, playable in the `experiment/alt-system` branch, kept for reference:
+
+??? info "System A — Click-move (parked)"
+    Left-click sent the whole bubble marching to a spot (gold ring marker, constant march speed, still leashed and speed-capped). On arrival it **parked** and held ground until recalled or re-ordered.
+
+??? info "System B — Stretch / teardrop pod (parked)"
+    Hold left-click and the bubble **stretched a pod toward the cursor** — the outline became a teardrop (two circles joined by outer tangents), like a water drop being pulled.
+
+    - A floating **X / max** counter at the pod tip climbed while held: ~2.5 troops/s at short reach, ~16/s at full reach (22 units).
+    - **X troops physically walked into the pod**; nearest free troops recruited first.
+    - **Area conserved**: disc + pod always summed to the resting circle, so committing visibly thinned the main disc.
+    - **Release retracted** the pod unless it touched an enemy bubble — then it **latched** until right-click broke it.
+    - Pod-only contact committed **only pod troops**: poke with 10, hold 40 in reserve.
+    - A latched pod auto-recruited replacements for its dead — it slowly drained your army until you broke off.
+
+    Severing a pod into its own group was never built; the [three candidate designs](../project/open-questions.md#severed-pods) are still on file.
+
+**Findings that outlive the code** (the reason the experiment was worth running):
+
+- Committing troops *gradually* (a counter that fills while you hold) reads as a genuine commitment gesture — the tension was real.
+- Area conservation is legible without any UI: you *see* the disc thin out.
+- Nearest-enemy targeting collapses both armies into one scrum; any future melee needs a chase-distance cap.
+- A pod poke alerting the enemy's *whole* army dragged them out of formation — response rules have to be defenders-only.
 
 ## Enemy bubbles
 
-Enemy armies are bubbles too (same code, different faction/colour). They currently just hold ground and fight when touched; they do not stretch. Whether enemy AI ever stretches is open.
+Enemy armies use the same bubble code with a different faction and colour. They hold ground and fight on contact. Enemy behaviour (patrol / advance / respond) is still unbuilt.
 
 ## Friendly bubbles (co-op)
 
-In [4-player co-op](coop.md) there are up to four *friendly* bubbles sharing a battlefield. Nothing about how they interact is decided — overlap, merging, and stretching a pod through an ally's disc are all open. The invariants above are per-bubble and are expected to survive unchanged: your leash is to *your* summoner, your speed cap is *your* speed.
-
-## Known feel issues <span class="pill risk">RISK</span>
-
-Carried on the [Backlog](../project/backlog.md):
-
-- Melees collapse into a single scrum: nearest-enemy targeting pulls both sides into one ball. Likely fix: cap chase distance from formation slot so front ranks fight and back ranks hold.
-- When a pod pokes an enemy bubble, **all** enemy troops respond and chase — drags their whole army out of its circle. Likely fix: defenders-only response rule.
-- Right-click double-duty: breaking a pod grip also starts a camera orbit (right-drag). Cosmetic at tap-length, but a candidate for rebinding.
+Up to four friendly bubbles share a battlefield. Overlap and merging rules are open, but the invariants are per-bubble and expected to survive: your leash is to *your* summoner, your speed cap is *your* speed. See [Co-op](coop.md).

@@ -10,7 +10,13 @@ A founding pillar: Summoner is designed to be played together, each player with 
 | **Anti-cheat** | **None.** Explicitly out of scope — friends-only sessions, trust the client |
 | **Network stack** | **Same system as [OTR](../tech/networking.md)** — Steam lobby + `SteamMultiplayerPeer`, one tick manager, `StateBuffer` interpolation |
 
-Each player steers their own army organism. Co-op is **cooperative horde control**: the interesting decisions are *between* the bubbles — who takes the choke, who stretches to flank, who holds the reserve. [Instance-based maps](runs.md) exist partly *for* co-op: join at instance boundaries, no mid-simulation sync horror.
+Each player brings their own summoner and their own bubble. With the [bubble simplified](bubble.md) to a passive aura, co-op decisions live on the shared layer:
+
+- **The [caravan](caravan.md)** — commandable by anyone, guarded by its own troops, and its death ends *everyone's* run. The one object the whole party has to keep thinking about.
+- **The map** — four players splitting across a big [POI-studded map](runs.md) under **shared fog of war** (anyone reveals for everyone), deciding who escorts and who runs ahead.
+- **The [graveyard](graveyard.md)** — whether tombstones are shared or per-player is still open, and it decides whether the party specialises or duplicates.
+
+[Instance-based maps](runs.md) exist partly *for* co-op: join at instance boundaries, no mid-simulation sync horror.
 
 ### Why "we don't care about cheating"
 
@@ -33,10 +39,12 @@ Going from 2 to 4 changes the load-bearing numbers, not the fantasy:
 
 !!! warning "Not decided"
 
-    - **Bubble-bubble interaction:** do friendly bubbles overlap freely, merge at the seam, or stay exclusive? Can one player's pod stretch *through* an ally's disc? (At 4 players, "exclusive" may be unplayable in tight maps.)
+    - **Bubble-bubble interaction:** do friendly bubbles overlap freely, merge at the seam, or stay exclusive? (At 4 players, "exclusive" may be unplayable in tight maps — and with passive bubbles, two players standing together is now a *core* tactic, so overlap probably has to be free.)
+    - **Shared or per-player graveyard?** Do all four upgrade the same tombstones, or does everyone have their own? ([Graveyard](graveyard.md))
+    - **Caravan command conflicts:** anyone can order it — last-order-wins, or something with a vote? ([Caravan](caravan.md))
     - **Loot:** per-player instanced or shared pool? ([Items](items.md))
-    - **Downed state:** when one summoner's army is wiped, what keeps them playing — spectate, ghost-walk, or can an ally's bubble shelter/revive them? At 4 players this happens *often*; it needs a real answer, not a placeholder.
-    - **Scaling:** enemy bubbles per player, bigger enemy bubbles, or asymmetric objectives? Does a 4-player run have the same map pool as a solo run?
+    - **Downed state:** when a summoner dies or their army is wiped, what keeps them playing — respawn at the caravan, spectate, ghost-walk, ally revive? At 4 players this happens *often*; it needs a real answer, not a placeholder.
+    - **Scaling:** enemy density per player, POI difficulty, or asymmetric objectives? Does a 4-player run use the same map pool as a solo run?
     - **Army size per player at 4:** does everyone keep 50, or does the per-player cap shrink so the total stays sane? (Feel question — 50 each is the fantasy, budget may argue.)
     - **Joining:** drop-in at instance boundaries only, or lobby-locked at run start? Roguelite progress makes mid-run joins awkward.
 

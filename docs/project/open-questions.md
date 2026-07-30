@@ -2,9 +2,9 @@
 
 The decisions that are deliberately **not made yet**. When one gets decided, move it to the [Decision Log](decisions.md) with the reasoning, and update the owning page.
 
-## Severed pods {#severed-pods}
+## Severed pods <span class="pill parked">PARKED</span> {#severed-pods}
 
-*The* signature open question. When a stretched pod is cut loose (a mechanic we want, not yet built — currently right-click just retracts), what does the severed group become? All three candidates were liked; they may even coexist as [item](../game/items.md)-granted variants:
+Parked 2026-07-30 along with the whole stretch system — the [bubble is a passive aura](../game/bubble.md) now, so there is no pod to sever. Kept on file because the idea outlived its mechanism: if the simplified bubble ever needs a way to commit part of the army, this is the drawer. All three candidates were liked; they may yet return as [item](../game/items.md)-granted variants:
 
 | # | Behaviour | Character | Cost |
 |---|---|---|---|
@@ -12,20 +12,34 @@ The decisions that are deliberately **not made yet**. When one gets decided, mov
 | 2 | **Commandable** — becomes a selectable mini-bubble you can send marching | Most powerful, most RTS | Needs a selection system |
 | 3 | **Seeker** — auto-marches at the nearest enemy bubble, fire-and-forget | Most aggressive, feels like a thrown weapon | Needs pathing + target policy |
 
+## The big one right now
+
+**Is a passive bubble enough?** With no move orders and no stretching, moment-to-moment play is walking your body around. The bet is that [composition](../game/graveyard.md), the [caravan](../game/caravan.md) and [POI routing](../game/runs.md) carry the tension instead. This is a feel question and it has to be answered in-engine, not in this wiki.
+
 ## Control & combat
 
 - Chase cap: how far may a fighting troop stray from its slot? (Fix for the melee-scrum issue — [Combat](../game/combat.md).)
-- Enemy response rule: defenders-only, or full-army response to a pod poke?
-- Rebind break-connection off right-click, or live with the orbit overlap?
-- Should enemy AI ever stretch?
-- Troop types: identical troops vs typed summons?
+- Enemy response rule: defenders-only, or does the whole enemy force react?
+- **Unit types**: how many, and what axes — tanky / fast / ranged / support? Ranged breaks "contact = combat", so it's a fork, not a stat.
+- Do enemies preferentially attack the [caravan](../game/caravan.md), or just fight what's nearest?
+- Should enemy bubbles move/patrol at all, or hold ground as static threats on the map?
 
-## Structure & meta
+## Graveyard & meta
 
-- What persists between runs? (Gates the whole [item system](../game/items.md).)
-- Run structure: linear / node-map / hub-and-sortie?
-- Summoner killability & the run's failure condition.
-- Bubble area, max troops, fill rate as upgrade axes — which are items, which are meta?
+- Where do [points](../game/graveyard.md) come from — POIs, kills, extraction, caravan survival?
+- What resets on a lost run: points-in-hand, unlocked units, collected items? (Tombstone levels persist — that's settled.)
+- **Shared or per-player graveyard** in [co-op](../game/coop.md)?
+- Does fielding an army cost points too (per-run draft), or is levelling the only spend?
+- Two currencies problem: if [items](../game/items.md) persist as well as points, they must progress different axes.
+
+## Run structure
+
+- POI objective types, reward types, and whether POIs are optional (probably yes — that's the Helldivers shape).
+- Does the [caravan](../game/caravan.md) auto-advance or move only when told? Different games.
+- Caravan command conflicts at 4 players; caravan speed; what it carries; repair.
+- Summoner death cost, now that the caravan owns the fail state.
+- Map generation: hand-built pool → procedural assembly → full procgen? (Start hand-built.)
+- Session length target, and therefore map size in minutes-of-caravan-travel.
 
 ## Co-op
 

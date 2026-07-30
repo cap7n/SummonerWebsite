@@ -2,21 +2,26 @@
 
 The working task list. Legend: <span class="pill done">DONE</span> <span class="pill wip">WIP</span> <span class="pill todo">TODO</span> <span class="pill idea">IDEA</span> <span class="pill risk">RISK</span> <span class="pill parked">PARKED</span>
 
-## Now — settle the A/B
+## Now — prove the new shape
 
-- <span class="pill wip">WIP</span> Play both control schemes (F1) against the dummy enemy; pick a direction, note *why* in the [Decision Log](decisions.md)
+The A/B is closed (both schemes [parked](../game/bubble.md#parked-prototype-systems)). The open risk is whether a passive bubble is enough, so the next things built should be the systems that are *supposed* to carry the tension.
+
+- <span class="pill risk">RISK</span> Strip the bubble to follow-only and play it — is walking your body around enough? Note the verdict in the [Decision Log](decisions.md)
+- <span class="pill todo">TODO</span> Caravan v0: a moving object with HP that any player can order, run ends if it dies ([Caravan](../game/caravan.md))
+- <span class="pill todo">TODO</span> One POI type end-to-end: enter → objective → reward ([Runs](../game/runs.md#pois))
 - <span class="pill todo">TODO</span> Chase-distance cap so melees form a front line instead of a scrum
-- <span class="pill todo">TODO</span> Enemy responds with defenders only (not the whole army) to a pod poke
-- <span class="pill idea">IDEA</span> Rebind break-connection off right-click (orbit overlap)
+- <span class="pill todo">TODO</span> Enemy responds with defenders only, not the whole force
 
-## Next — make the fight a game
+## Next — make it a run
 
-- <span class="pill todo">TODO</span> Enemy bubble behaviour: patrol / advance / respond (it's a static dummy now)
-- <span class="pill todo">TODO</span> Win/lose state and restart flow (it's an HUD label now)
-- <span class="pill idea">IDEA</span> First severed-pod experiment — pick one of the [three candidates](open-questions.md#severed-pods)
-- <span class="pill idea">IDEA</span> Second enemy bubble / multi-front pressure (the reason stretching exists)
+- <span class="pill todo">TODO</span> Fog of war on a big map, shared reveal for all players
+- <span class="pill todo">TODO</span> Graveyard hub scene: tombstones, point spend, unit levels, starting-item pick ([Graveyard](../game/graveyard.md))
+- <span class="pill todo">TODO</span> Save format for tombstone levels / meta state
+- <span class="pill todo">TODO</span> Two or three unit types that actually differ (the composition decision needs something to decide *between*)
+- <span class="pill todo">TODO</span> Enemy behaviour on a map: static threats vs. patrols
+- <span class="pill todo">TODO</span> Win/lose/extract flow (it's an HUD label now)
 
-## The rebuild <span class="pill parked">PARKED until A/B verdict</span>
+## The rebuild <span class="pill wip">UNBLOCKED — A/B closed 2026-07-30</span>
 
 - <span class="pill risk">RISK</span> **Troop-sync spike: shape-sync vs per-troop sync** (2 peers, 100 troops, measure bytes *and* how the crowd reads) — **before** the architecture locks; it decides whether a troop is an entity or a particle. [Numbers](../tech/networking.md#the-troop-sync-problem)
 - Architecture co-design session: unit brain / formation shape / commander / renderer; simulation separated from control, every bubble owned by a peer from day one
@@ -24,8 +29,8 @@ The working task list. Legend: <span class="pill done">DONE</span> <span class="
 
 ## Feature pillars, not started
 
-- <span class="pill todo">TODO</span> Items: decide persistence question first ([Runs](../game/runs.md)), then slot model, then first 5 items
-- <span class="pill todo">TODO</span> Runs: hand-built map pool, run chain, failure condition
+- <span class="pill todo">TODO</span> Items: decide persistence + two-currency question first ([Items](../game/items.md)), then slot model, then first 5 items
+- <span class="pill todo">TODO</span> Runs: hand-built map pool, map-scale navigation, extraction
 - <span class="pill todo">TODO</span> Co-op: remaining design answers on [Co-op](../game/coop.md) — bubble-bubble rules, downed state, loot, 4-player scaling
 - <span class="pill todo">TODO</span> Co-op tech: port OTR's Steam layer (lobby size 2 → 4), tick manager and `StateBuffer` — *after* the sync spike picks the payload
 
@@ -38,3 +43,4 @@ The working task list. Legend: <span class="pill done">DONE</span> <span class="
 - <span class="pill done">DONE</span> Stretch/pod system (teardrop, X/max counter, latch, RMB break) — 2026-07-29
 - <span class="pill done">DONE</span> Walk-back regroup (no snap) — 2026-07-29
 - <span class="pill done">DONE</span> A/B toggle F1, help overlay toggle F2 — 2026-07-30
+- <span class="pill done">DONE</span> A/B closed by simplifying: bubble is passive, both schemes parked — 2026-07-30

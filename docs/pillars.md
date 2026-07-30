@@ -4,7 +4,9 @@ The six features Summoner is being built around, plus the working rules. These a
 
 ## 1. Horde control, one organism
 
-You command an army, but you never micro a unit. The **bubble is the interface**: everything the army does is expressed by moving, stretching, and splitting one living shape. If a feature requires clicking on an individual troop, it's probably fighting this pillar.
+You command an army, but you never micro a unit. Your troops are a **bubble around your summoner** — it follows you, it fights what it touches, and you never order it anywhere. If a feature requires clicking on an individual troop, it's fighting this pillar.
+
+Control is expressed in three places instead: **where you walk**, **what you brought** ([tombstone-summoned unit types](game/graveyard.md)), and **the shared map layer** ([caravan](game/caravan.md) + [POI](game/runs.md) routing).
 
 ## 2. Co-op native
 
@@ -18,18 +20,19 @@ There are no classes and no skill trees. **Abilities come from items**: what you
 
 ## 4. Roguelite structure
 
-The game is played in **runs**. Death matters but doesn't erase you: some things persist (collected items? unlocks? — [open](project/open-questions.md)), the rest resets. The run structure is what makes item-collecting tense instead of a chore.
+The game is played in **runs**, out of and back to the [Graveyard](game/graveyard.md) — a hub you walk around, where **tombstones** are levelled with points to strengthen and unlock unit types. Death matters but doesn't erase you: tombstone levels persist, the rest is [open](project/open-questions.md). The [caravan](game/caravan.md) dying is what ends a run.
 
 ## 5. Instance-based maps
 
-Levels are **instanced**: you enter a map, it's generated/assembled for that visit, you fight through it, you leave (or die). No persistent overworld simulation. This keeps scope honest, makes co-op sessions joinable, and gives the roguelite loop clean boundaries.
+Levels are **big instanced RTS maps**: you deploy into one, it exists for that visit, you push through it, you leave (or lose the caravan). Fog of war covers them and **vision is shared by the whole party**. POIs are scattered across the map with objectives and rewards — the Helldivers shape: lots of space, real travel cost, optional greed. No persistent overworld simulation. See [Runs, Maps & the Roguelite Loop](game/runs.md).
 
 ## 6. Prototype honestly, rebuild deliberately
 
-The current PoC exists to answer feel questions cheaply, and it will be **rebuilt on an architecture the developer understands and owns**. Prototype code is allowed to be ugly; the rebuild is not allowed to start until the control-scheme A/B has a verdict. Findings outlive code — record them here.
+The current PoC exists to answer feel questions cheaply, and it will be **rebuilt on an architecture the developer understands and owns**. Prototype code is allowed to be ugly, and it's allowed to be **thrown away**: the click-move and stretch control schemes were both built, played, and then [parked](game/bubble.md#parked-prototype-systems) when the design got simpler. Findings outlive code — record them here.
 
 ## Working-relationship notes
 
-- **Feel first, numbers second.** The A/B toggle (F1) exists so control schemes are compared in the same battle, not from memory.
+- **Feel first, numbers second.** Systems get built, played, and cut on how they feel — the control-scheme A/B was run in-engine and settled by simplifying, not by argument.
+- **Simple until proven boring.** When a system can be cut without losing the game, cut it and see. Parked, not deleted.
 - **Verify with rendered frames, not vibes.** The prototype workflow renders real PNG frames headlessly for visual checks — see [Engine & Prototype Workflow](tech/engine.md).
 - **Dark green, not blue.** The palette is dark green by explicit preference. (The developer hates blue. It's in the [Decision Log](project/decisions.md). It's binding.)

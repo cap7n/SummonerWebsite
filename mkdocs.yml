@@ -43,6 +43,8 @@ nav:
   - The Game:
       - The Bubble (Horde Control): game/bubble.md
       - The Summoner: game/summoner.md
+      - The Graveyard (Hub & Meta): game/graveyard.md
+      - The Caravan: game/caravan.md
       - Combat: game/combat.md
       - Items & Equipment: game/items.md
       - Runs, Maps & the Roguelite Loop: game/runs.md

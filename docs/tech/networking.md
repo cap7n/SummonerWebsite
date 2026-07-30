@@ -47,6 +47,19 @@ Per-troop sync also blows past MTU every single tick (4 KB → four chunked pack
     - Why it might fail: melee reads badly if the crowd on each screen isn't at least *roughly* agreed — a death animation should play near where that screen thinks the fight is. Kills as counts (not identities) is the mitigation to test.
     - **This is the feasibility spike**, and it must run before the rebuild's architecture locks. It decides whether a troop is an entity or a particle — which is the single biggest structural question in the rebuild.
 
+!!! note "The 2026-07-30 simplification made this much easier"
+    Now that the [bubble](../game/bubble.md) is a plain circle locked to the summoner — no move orders, no stretching — a player's bubble state is *almost entirely implied by their summoner transform*. Shape-sync shrinks from "centre + stretch vector + fill + counts" to roughly **transform + alive count per unit type**. The crowd is grown locally from that. If the spike was going to work before, it will work comfortably now.
+
+## Other things that go on the wire
+
+| State | Notes |
+|---|---|
+| **[Caravan](../game/caravan.md)** | Host-authoritative, one entity, cheap. Any peer can *request* a move order (input RPC); the host applies it and syncs the result. Its death is a run-ending event — send it reliably, never as interpolated state. |
+| **[Fog of war](../game/runs.md#fog-of-war)** | Shared vision means **one** fog state for the party, not four. Reveal is a coarse grid; send deltas (newly revealed cells) reliably, not the whole grid per tick. Massively cheaper than per-player fog — a real argument for the shared-vision decision beyond feel. |
+| **[POI](../game/runs.md#pois) state** | Low-frequency events (started / progress tick / completed / rewarded). Reliable RPC, not tick state. |
+| **Summoners** | Client-owned via `get_sync_owner_peer_id()` — your own movement is local and lag-free, exactly like OTR's drone. |
+| **Enemies** | Host-authoritative. Same troop-volume problem as friendly bubbles; the spike's answer applies to both. |
+
 ## Order of work
 
 1. Spike shape-sync vs per-troop sync in a throwaway scene (2 peers, 100 troops, measure bytes + how the crowd reads).
