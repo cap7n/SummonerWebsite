@@ -11,6 +11,7 @@
 | `Summoner/Summoner/` | The Godot project (PoC) |
 | `Summoner/SummonerWebsite/` | This wiki |
 | `Summoner/Summoner Marketing/`, `Summoner builds/` | Non-code siblings |
+| `Desktop/OTR/` | **Sibling project** — the 2-player co-op car game whose network stack Summoner reuses ([Networking](networking.md)) |
 
 The PoC repo has two branches:
 
@@ -37,6 +38,11 @@ Scripted tests have been used to verify: troop scatter stays in-bounds and separ
 ## PoC → rebuild
 
 The current code is a **disposable proof of concept** (one ~600-line `troop_bubble.gd` doing formation, movement, combat, two control schemes, and rendering). After the A/B verdict, the plan is a deliberate rebuild on an architecture the developer understands and co-designs — roughly: unit brain / formation shape / commander / renderer as separate pieces, with simulation state separated from control input for [co-op](../game/coop.md)'s sake.
+
+Two co-op decisions now constrain that rebuild before it starts:
+
+- **4 players → 200+ troops**, so spatial partitioning for separation and targeting is a requirement, not an optimisation.
+- **Troops must be describable on the wire.** The [troop-sync spike](networking.md#the-troop-sync-problem) runs *before* the architecture locks, because "entity or particle?" changes the shape of every piece above.
 
 !!! note "Editor-conflict rule"
     Don't edit a `.tscn`/`.tres` from tooling while it's open in the Godot editor — the editor clobbers it on save. Close the scene first or hand over the change as steps.

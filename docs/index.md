@@ -1,6 +1,6 @@
 # Summoner Design Wiki
 
-**Summoner is a co-op horde-control roguelite.** You play a summoner walking the battlefield in person, surrounded by a **bubble** — a living formation of troops that moves with you. You don't micro units; you shape the bubble: stretch it toward an enemy force to commit troops, latch on, break off. Between and during runs you collect and equip items, and your abilities come from what you carry, not from a class sheet.
+**Summoner is a 4-player co-op horde-control roguelite.** You play a summoner walking the battlefield in person, surrounded by a **bubble** — a living formation of troops that moves with you. You don't micro units; you shape the bubble: stretch it toward an enemy force to commit troops, latch on, break off. Between and during runs you collect and equip items, and your abilities come from what you carry, not from a class sheet.
 
 Built in **Godot 4.7**.
 
@@ -14,7 +14,7 @@ Built in **Godot 4.7**.
 
 The twist that makes Summoner its own thing is the **bubble as the unit of control**. RTS games give you a mouse and 50 health bars; Summoner gives you one organism. Every army decision is expressed through one shape — where you walk it, where you stretch it, what you let it touch. The tension is *commitment*: troops flow into a stretched pod a few at a time, so how long you hold the stretch **is** how much force you commit.
 
-Around that core sit six feature pillars: **co-op**, **horde control**, **item equipping & collecting**, **roguelite structure**, **item-based abilities**, and **instance-based maps**. See [Design Pillars](pillars.md) for what each one means and doesn't mean.
+Around that core sit six feature pillars: **4-player co-op**, **horde control**, **item equipping & collecting**, **roguelite structure**, **item-based abilities**, and **instance-based maps**. See [Design Pillars](pillars.md) for what each one means and doesn't mean.
 
 ## Where the game is right now
 
@@ -31,7 +31,7 @@ Summoner is at the **proof-of-concept** stage: one Godot project, one test arena
 | Click-to-move: march, park, recall | ✅ Working (system A) |
 | A/B toggle between control schemes (F1) | ✅ Working |
 | Enemy bubble AI | ⬜ Static dummy only |
-| Co-op | ⬜ Not started |
+| Co-op (4 players, OTR network stack) | ⬜ Not started — [stack chosen](tech/networking.md), sync spike pending |
 | Items, equipment, abilities | ⬜ Not started |
 | Runs / maps / roguelite loop | ⬜ Not started |
 | Robust architecture rebuild | 📋 Planned after the A/B verdict |

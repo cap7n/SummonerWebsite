@@ -11,7 +11,7 @@ Two pillars live here: **roguelite structure** and **instance-based maps**. Not 
 ## Why instances (and not an open world)
 
 - A prototype-friendly unit of content: one arena is already an instance; a run is a sequence of them.
-- Co-op drop-in is tractable: a friend joins at the next instance boundary instead of mid-simulation.
+- Co-op drop-in is tractable: a friend joins at the next instance boundary instead of mid-simulation — and at **4 players** that boundary is the only sane place to add someone.
 - The bubble system loves bounded spaces: chokepoints, arena edges, and narrow connections make *shape* decisions matter (a stretched pod through a corridor is a genuinely different move than in open field).
 
 ## Open questions
@@ -22,4 +22,5 @@ Two pillars live here: **roguelite structure** and **instance-based maps**. Not 
     - **Run structure:** linear chain of instances (A→B→C→boss), branching node map (Slay-the-Spire style), or hub-and-sortie (village → pick a gate → instance → home)? Hub-and-sortie fits "carry items home" best.
     - **Generation:** hand-built maps drawn from a pool, procedural assembly of hand-built rooms, or full procgen? (Start with a pool of hand-built maps — cheapest way to learn what layouts make bubble control interesting.)
     - **Failure:** what does dying actually cost? Bubble wiped = run over, or summoner death = run over? (Ties to the summoner-killability question in [The Summoner](summoner.md).)
-    - **Session length target:** a run should take how long — 20 min? 45? This gates map count per run and co-op scheduling.
+    - **Session length target:** a run should take how long — 20 min? 45? This gates map count per run and co-op scheduling (getting four people in a room sets a hard ceiling).
+    - **Instance size for four bubbles:** map layouts must be drawn for up to four organisms plus enemies. A choke sized for one bubble is a traffic jam for four — see [Co-op](coop.md).

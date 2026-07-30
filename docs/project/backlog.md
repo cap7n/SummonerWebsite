@@ -18,15 +18,16 @@ The working task list. Legend: <span class="pill done">DONE</span> <span class="
 
 ## The rebuild <span class="pill parked">PARKED until A/B verdict</span>
 
-- Architecture co-design session: unit brain / formation shape / commander / renderer; simulation separated from control for co-op
-- Spatial partitioning for separation & targeting (O(n²) now; caps ~few hundred troops)
-- Co-op troop-sync feasibility spike — **before** the architecture locks
+- <span class="pill risk">RISK</span> **Troop-sync spike: shape-sync vs per-troop sync** (2 peers, 100 troops, measure bytes *and* how the crowd reads) — **before** the architecture locks; it decides whether a troop is an entity or a particle. [Numbers](../tech/networking.md#the-troop-sync-problem)
+- Architecture co-design session: unit brain / formation shape / commander / renderer; simulation separated from control, every bubble owned by a peer from day one
+- Spatial partitioning for separation & targeting — **now mandatory**: 4 players × 50 troops = 200 friendlies, past the O(n²) ceiling before enemies are even counted
 
 ## Feature pillars, not started
 
 - <span class="pill todo">TODO</span> Items: decide persistence question first ([Runs](../game/runs.md)), then slot model, then first 5 items
 - <span class="pill todo">TODO</span> Runs: hand-built map pool, run chain, failure condition
-- <span class="pill todo">TODO</span> Co-op: design answers on [Co-op](../game/coop.md), then the sync spike
+- <span class="pill todo">TODO</span> Co-op: remaining design answers on [Co-op](../game/coop.md) — bubble-bubble rules, downed state, loot, 4-player scaling
+- <span class="pill todo">TODO</span> Co-op tech: port OTR's Steam layer (lobby size 2 → 4), tick manager and `StateBuffer` — *after* the sync spike picks the payload
 
 ## Done
 

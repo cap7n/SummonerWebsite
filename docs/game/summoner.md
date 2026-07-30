@@ -24,4 +24,4 @@ Zoom on wheel, orbit on right-drag, Q/E rotate.
     - Can the summoner fight at all, or is the army the only weapon? (Current prototype: the summoner is untargetable and unarmed; enemies ignore them.)
     - What happens when troops die around the summoner — is the summoner killable? Is losing the whole bubble the death condition, or is the summoner's own HP?
     - Do [items](items.md) grant the summoner personal abilities (dash, wall, buff aura), army abilities, or both?
-    - Per-summoner identity in [co-op](coop.md): are both summoners identical, or differentiated by their equipped items only?
+    - Per-summoner identity in [co-op](coop.md): are all four summoners identical, or differentiated by their equipped items only? (With 4 on screen, they at least need to be told apart at a glance — colour per player, while gold stays "the player characters" as a class.)

@@ -8,7 +8,9 @@ You command an army, but you never micro a unit. The **bubble is the interface**
 
 ## 2. Co-op native
 
-Summoner is designed to be played **with a friend**, each with their own summoner and their own bubble. Co-op is not a mode bolted on later: any system we design (stretching, items, revives, map instances) should be asked *"what does this do in co-op?"* at design time. Player count, drop-in rules, and how two bubbles interact are [open questions](project/open-questions.md).
+Summoner is designed to be played **with up to three friends — 4 players**, each with their own summoner and their own bubble. Co-op is not a mode bolted on later: any system we design (stretching, items, revives, map instances) should be asked *"what does this do with four bubbles on the field?"* at design time. Solo stays playable; it's just a lobby of one.
+
+Cheating is **explicitly not a concern** (private sessions, no ladder), which buys client-authoritative simplicity. The stack is the one already proven in OTR — see [Networking](tech/networking.md). Drop-in rules and how friendly bubbles interact are still [open questions](project/open-questions.md).
 
 ## 3. Items are the power system
 

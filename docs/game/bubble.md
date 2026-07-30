@@ -38,6 +38,10 @@ Hold left-click and the bubble **stretches a pod toward the cursor** — the out
 
 Enemy armies are bubbles too (same code, different faction/colour). They currently just hold ground and fight when touched; they do not stretch. Whether enemy AI ever stretches is open.
 
+## Friendly bubbles (co-op)
+
+In [4-player co-op](coop.md) there are up to four *friendly* bubbles sharing a battlefield. Nothing about how they interact is decided — overlap, merging, and stretching a pod through an ally's disc are all open. The invariants above are per-bubble and are expected to survive unchanged: your leash is to *your* summoner, your speed cap is *your* speed.
+
 ## Known feel issues <span class="pill risk">RISK</span>
 
 Carried on the [Backlog](../project/backlog.md):

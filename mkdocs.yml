@@ -1,6 +1,6 @@
 site_name: Summoner Design Wiki
 site_url: https://cap7n.github.io/SummonerWebsite/
-site_description: Design wiki and single point of truth for Summoner, a co-op horde-control roguelite built in Godot.
+site_description: Design wiki and single point of truth for Summoner, a 4-player co-op horde-control roguelite built in Godot.
 repo_url: https://github.com/cap7n/SummonerWebsite
 edit_uri: edit/main/docs/
 
@@ -49,6 +49,7 @@ nav:
       - Co-op: game/coop.md
   - Tech:
       - Engine & Prototype Workflow: tech/engine.md
+      - Networking (Co-op): tech/networking.md
   - Project:
       - Open Questions: project/open-questions.md
       - Backlog: project/backlog.md

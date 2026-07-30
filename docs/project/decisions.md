@@ -4,6 +4,9 @@ Why things are the way they are. Newest first. When an [open question](open-ques
 
 | Date | Decision | Why |
 |---|---|---|
+| 2026-07-30 | **Co-op is 4 players** (1–4; solo is a lobby of one). | The pillar was always "play it with friends"; 4 is the party size the fantasy wants. Cost is architectural (200+ troops), and it's cheaper to pay for it now than to retrofit. |
+| 2026-07-30 | **Anti-cheat is out of scope.** | Private co-op sessions, no ladder or economy — nothing to protect. Buys client-authoritative ownership of your own summoner/bubble (zero input lag, no reconciliation). |
+| 2026-07-30 | **Reuse OTR's network stack** — GodotSteam `SteamMultiplayerPeer`, one `NetworkTickManager`, `StateBuffer` + Hermite interpolation, per-entity sync ownership. | Already built, shipped and debugged by the same developer in the same engine. Zero novel transport risk; the only genuinely new problem is troop volume. See [Networking](../tech/networking.md). |
 | 2026-07-30 | **Wiki created** (this site), mirroring the TowerDrop wiki stack (MkDocs Material, same conventions). | One place for design truth before the feature set grows. |
 | 2026-07-30 | **Both control schemes wired into one build behind F1**, instead of two builds. | A/B testing feel needs instant switching in the same battle; export-per-tweak kills iteration. |
 | 2026-07-30 | **PoC is disposable; rebuild planned** on an architecture the developer understands and helps shape. | The prototype answers feel questions; it shouldn't calcify into the codebase. |

@@ -27,5 +27,5 @@ Two pillars live here: **item equipping & collecting**, and **item-based abiliti
     - Who carries an item home — the summoner personally, or does the bubble engulf it? (Bubble-engulfing is charming and on-theme.)
     - Do items persist between runs (collection = meta-progression) or reset (roguelike-pure)? This is the single biggest roguelite structure decision — see [Runs](runs.md).
     - Slot model: paper-doll (head/hand/etc.), generic slots (any 4 items), or size-based bag? 
-    - In [co-op](coop.md): per-player loot or shared pool? Trading?
+    - In [co-op](coop.md): per-player loot or shared pool? Trading? (At **4 players** a shared pool means one grabby friend ends the discussion — instanced drops are the safer default.)
     - Are ability items *used up*, on cooldown, or channelled by committing troops (spend X troops from the bubble to cast — very on-theme)?

@@ -29,5 +29,12 @@ The decisions that are deliberately **not made yet**. When one gets decided, mov
 
 ## Co-op
 
-- Friendly bubble overlap/merge rules; player count; loot sharing; downed state; scaling. (Detailed on [Co-op](../game/coop.md).)
-- Multiplayer troop-sync feasibility spike — **should happen before the rebuild locks its architecture.**
+Settled 2026-07-30: **4 players**, **no anti-cheat**, **OTR's network stack** (see [Networking](../tech/networking.md)). What's left:
+
+- Friendly bubble overlap/merge rules — does an ally's disc block your pod, or can you stretch through it? (Four discs in one choke makes "exclusive" possibly unplayable.)
+- Loot sharing: per-player instanced or shared pool?
+- Downed state when a player's army is wiped — at 4 players this happens constantly, so it needs a real mechanic.
+- Scaling: enemies per player, bigger enemy bubbles, or asymmetric objectives?
+- Per-player army size at 4 — is it still 50 each, or does the cap shrink to keep 200 bodies sane?
+- Joining: drop-in at instance boundaries, or lobby-locked at run start?
+- **Are troops entities or particles on the wire?** The [troop-sync spike](../tech/networking.md#the-troop-sync-problem) decides it — **must run before the rebuild locks its architecture.**
