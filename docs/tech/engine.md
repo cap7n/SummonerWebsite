@@ -9,8 +9,10 @@
 | Path | What |
 |---|---|
 | `Summoner/Summoner/` | The Godot project (PoC) |
+| `Summoner/Spikes/NetCrowdSpike/` | Isolated spike project: crowd scale + net streaming + Steam layer — all passed ([Architecture](architecture.md#spike-results)) |
+| `Summoner/Summoner builds/` | Shareable builds (currently the spike's friend-test zip) |
 | `Summoner/SummonerWebsite/` | This wiki |
-| `Summoner/Summoner Marketing/`, `Summoner builds/` | Non-code siblings |
+| `Summoner/Summoner Marketing/` | Non-code sibling |
 | `Desktop/OTR/` | **Sibling project** — the 2-player co-op car game whose network stack Summoner reuses ([Networking](networking.md)) |
 
 The PoC repo has two branches, both now **historical**:
@@ -39,17 +41,18 @@ Scripted tests have been used to verify: troop scatter stays in-bounds and separ
 
 ## PoC → rebuild
 
-The current code is a **disposable proof of concept** (one ~600-line `troop_bubble.gd` doing formation, movement, combat, two control schemes, and rendering). After the A/B verdict, the plan is a deliberate rebuild on an architecture the developer understands and co-designs — roughly: unit brain / formation shape / commander / renderer as separate pieces, with simulation state separated from control input for [co-op](../game/coop.md)'s sake.
+The current code is a **disposable proof of concept** (one ~600-line `troop_bubble.gd` doing formation, movement, combat, two control schemes, and rendering). The rebuild is now designed and unblocked — the full system list, ground rules and build order live on the **[Architecture](architecture.md)** page. In short: isolated systems with their own test scenes, troops as data (packed arrays + spatial grid + MultiMesh), boids on a heightmap instead of navmesh pathfinding, one simulating owner per crowd, events shaped like network messages from day one.
 
-Constraints the rebuild inherits before it starts:
+What the spikes already settled (2026-07-30/31):
 
-- **4 players → 200+ troops**, so spatial partitioning for separation and targeting is a requirement, not an optimisation.
-- **Troops must be describable on the wire.** The [troop-sync spike](networking.md#the-troop-sync-problem) runs *before* the architecture locks, because "entity or particle?" changes the shape of every piece above.
-- **The commander layer just got small.** With no move orders or stretching, "bubble control" is a follow-the-summoner formation solver. The complexity moved up to the map layer: [caravan](../game/caravan.md) pathing, [fog](../game/runs.md#fog-of-war) grid, [POI](../game/runs.md#pois) state machines.
-- **New systems the PoC has never touched:** fog of war on a big map, pathfinding at map scale, a hub scene with persistent save state ([Graveyard](../game/graveyard.md)), and a save format for tombstone levels. These are the real unknowns now — the troop layer is the solved part.
+- **Scale**: ~810 agents at ~2 ms sim in GDScript — spatial partitioning in, physics bodies out.
+- **Wire**: troops are streamed entities (6 B, 15 Hz deltas) — [numbers](networking.md#the-troop-sync-problem).
+- **Steam**: OTR's layer runs on 4.7; real-internet session held up.
+
+Still genuinely new to this project: fog of war on a big map, the route/road graph for caravan and enemy packs, a hub scene with persistent save state ([Graveyard](../game/graveyard.md)), and a save format for tombstone levels.
 
 !!! note "Godot pieces this implies"
-    Large maps mean the arena's single flat plane stops being enough: navigation meshes for caravan/enemy pathing, level streaming or chunking if maps get genuinely big, and a fog implementation (viewport-texture mask over the terrain shader is the usual cheap answer, and it composes with the existing `grid.gdshader` work). None of it is exotic; all of it is new to this project.
+    Heightmap terrain with a cheap `height_at()` lookup (no colliders needed for troops), a fog implementation (viewport-texture mask over the terrain shader is the usual cheap answer), and level chunking only if maps get genuinely big. Deliberately **not** implied anymore: navigation meshes — the route graph replaced them.
 
 !!! note "Editor-conflict rule"
     Don't edit a `.tscn`/`.tres` from tooling while it's open in the Godot editor — the editor clobbers it on save. Close the scene first or hand over the change as steps.

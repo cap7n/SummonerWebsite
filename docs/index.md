@@ -36,9 +36,9 @@ Summoner is at the **proof-of-concept** stage: one Godot project, one test arena
 | Graveyard hub, tombstones, point economy | ⬜ Not started — [structure decided](game/graveyard.md) |
 | Caravan (shared command, escort, fail state) | ⬜ Not started — [structure decided](game/caravan.md) |
 | Big RTS maps, fog of war (shared vision), POIs | ⬜ Not started — [structure decided](game/runs.md) |
-| Co-op (4 players, OTR network stack) | ⬜ Not started — [stack chosen](tech/networking.md), sync spike pending |
+| Co-op (4 players, OTR network stack) | ✅ **Proven in spike** — [streaming + Steam layer tested over real internet](tech/networking.md#the-troop-sync-problem) |
 | Items, equipment, abilities | ⬜ Not started |
-| Robust architecture rebuild | 📋 Next — no longer blocked |
+| Robust architecture rebuild | 🔨 [Designed, spikes passed](tech/architecture.md) — building systems |
 
 !!! warning "The PoC is disposable"
     The current prototype code is a proof of concept and is planned to be **rebuilt on a more robust architecture** once the control-scheme A/B is settled. Don't document prototype internals here as if they're final — record the *decisions and feel findings*, which are the part that survives the rewrite.

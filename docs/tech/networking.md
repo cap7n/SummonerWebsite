@@ -26,29 +26,34 @@ The two hard rules from OTR carry over unchanged:
 - **No RPC-sender hardening as a design constraint.** Cheating is explicitly not a threat here; validate where it's free, don't architect for it.
 - **Different payload entirely.** OTR syncs ~10 chunky entities (cars, turret, drone, a handful of enemies). Summoner has hundreds of tiny identical ones. That's the whole problem:
 
-## The troop-sync problem {#the-troop-sync-problem}
+## The troop-sync problem — SOLVED <span class="pill done">DONE</span> {#the-troop-sync-problem}
 
-Four players × 50 troops = **200 friendly bodies**, plus whatever the enemy fields. Sync them the OTR way — one entity, one snapshot, every tick — and the numbers say no:
+Four players × 100–200 troops plus enemies is over a thousand bodies — far past "one entity, one snapshot, every tick". Three candidate answers were considered; the spike (`Summoner/Spikes/NetCrowdSpike`, 2026-07-30/31) settled it.
 
-| Approach | Per tick | At 60 Hz, per receiving peer | Host upstream (3 clients) |
-|---|---|---|---|
-| Per-troop entity sync (~20 B/troop, 200 troops) | ~4 KB | ~240 KB/s | **~720 KB/s (≈5.8 Mbit/s)** |
-| Per-troop at 20 Hz | ~4 KB | ~80 KB/s | ~240 KB/s |
-| **Bubble-shape sync** (~40 B/bubble, ~10 bubbles) | ~0.4 KB | ~24 KB/s | ~72 KB/s |
+**Decided: troops are entities on the wire — per-troop quantized streaming.** A troop costs **6 bytes** (u16 index + u16 x + u16 z quantized over the map), sent as **deltas at 15 Hz** (only troops that moved) with a **1 Hz keyframe** carrying an alive-bitmask, plus reliable kill events. Receivers keep a per-crowd snapshot ring and render ~200 ms in the past (the `StateBuffer` idea, one ring per crowd instead of an object per entity). Packets chunk under MTU.
 
-Per-troop sync also blows past MTU every single tick (4 KB → four chunked packets per peer per tick, ~240 packets/s/peer), which is exactly the case the chunker exists to survive, not to live in.
+Measured in the spike, mid-battle, ~810 agents:
 
-!!! warning "Not decided — the proposed way out"
-    **Sync the organism, not the units.**
+| Metric | Result |
+|---|---|
+| Host upload per client | **~0.2 Mbit/s** (~10× under the ~2 Mbit/s comfort budget) |
+| Consistency | **Identical battle end-state on host and client** (same alive counts) |
+| Sim cost (660 owned agents, GDScript) | **~2 ms/frame** |
+| Real internet (Steam, 2 players, 2026-07-31) | Stable connection, correct battle on both screens |
 
-    Put the *bubble* on the wire, not the troops: centre, stretch vector, fill fraction, alive count, faction, latch state — a few dozen bytes per bubble. Each machine then grows its own crowd inside that shape locally: same seeded scatter, same formation solver, same walk-back logic. Combat sends **counts and events** (`bubble 3 lost 7`), never per-troop transforms.
+**Rejected: shape-sync** (stream the bubble, grow the crowd locally from seeded scatter). Killed by a hard requirement that arrived after it was proposed: **the battle must look exactly the same on every screen** — same troops dying in the same places, even when two players' bubbles fight the same enemy pack. Locally-grown crowds can't guarantee that; one authoritative simulation per crowd can, by construction.
 
-    - Why it's allowed: the [design pillar](../pillars.md) says a troop is never individually meaningful. If troop #17 stands 30 cm to the left on your screen, nothing in the game reads that. And with no anti-cheat requirement, a client owning its own crowd's visuals is fine.
-    - Why it might fail: melee reads badly if the crowd on each screen isn't at least *roughly* agreed — a death animation should play near where that screen thinks the fight is. Kills as counts (not identities) is the mitigation to test.
-    - **This is the feasibility spike**, and it must run before the rebuild's architecture locks. It decides whether a troop is an entity or a particle — which is the single biggest structural question in the rebuild.
+**Rejected: deterministic lockstep** (the BAR / Beyond All Reason / classic RTS model — only commands on the wire, every machine simulates everything bit-identically). It's how thousands of units fit in kilobytes, but it demands a fully deterministic sim (fixed-point math, no engine physics, desync tooling forever) that Godot does not provide, and it adds input latency that RTS clicks hide but **direct WASD summoner control would feel immediately**. Kept in the back pocket only for a hypothetical 10× unit-count future.
 
-!!! note "The 2026-07-30 simplification made this much easier"
-    Now that the [bubble](../game/bubble.md) is a plain circle locked to the summoner — no move orders, no stretching — a player's bubble state is *almost entirely implied by their summoner transform*. Shape-sync shrinks from "centre + stretch vector + fill + counts" to roughly **transform + alive count per unit type**. The crowd is grown locally from that. If the spike was going to work before, it will work comfortably now.
+!!! note "Who simulates what — the ownership law"
+    Every crowd has exactly one simulating owner: **your machine owns your bubble** (zero input lag on your own army), **the host owns enemies, caravan, fog and POIs**. Owners resolve their own agents' damage and deaths; everyone else renders the stream. Consistency across screens falls out of this for free — there is only ever one version of any fight. See [Architecture](architecture.md).
+
+## What the spike changed in the inherited stack {#what-the-spike-changed}
+
+- **Tick rate is 15 Hz, not OTR's 60** — crowds interpolate beautifully at 15 Hz and it quarters the bandwidth.
+- **`StateBuffer` became a per-crowd ring** of packed-array snapshots (one object per entity would be 1000 tiny allocations per second). Linear interpolation is enough so far; OTR's Hermite is the upgrade path if crowds ever look rubbery.
+- **Snapshots are timestamped by sender tick, not receive time** (min-tracked clock offset). Found the hard way in the first real-internet test: receive-time stamping made the host's army stutter on the client, because internet packets arrive in jittery bursts even on a stable connection. Sender-tick stamping restores perfectly even 66.7 ms spacing. This is a rule now, same standing as the two inherited ones above.
+- **Steam layer verified on Godot 4.7**: OTR's GodotSteam GDExtension (4.18.1) + Spacewar App ID 480 + friends-only lobby, `SteamMultiplayerPeer` as a drop-in for `ENetMultiplayerPeer` with zero changes to the RPC/snapshot layer. Lobby screen shows the lobby ID + members; host starts the match, late joiners get pulled in.
 
 ## Other things that go on the wire
 
@@ -62,6 +67,6 @@ Per-troop sync also blows past MTU every single tick (4 KB → four chunked pack
 
 ## Order of work
 
-1. Spike shape-sync vs per-troop sync in a throwaway scene (2 peers, 100 troops, measure bytes + how the crowd reads).
-2. Rebuild the architecture with the winner baked in ([Engine & Prototype Workflow](engine.md)).
-3. Steam layer last — it's the part that already works.
+1. ~~Spike per-troop streaming (2 peers, measure bytes + how the crowd reads).~~ **Done 2026-07-30** — see above.
+2. ~~Steam transport on 4.7 + real-internet test.~~ **Done 2026-07-31** — stable; stutter found and fixed.
+3. Rebuild the game as isolated systems with the winner baked in — [Architecture](architecture.md) has the build order. Networking ports over **last**, because it's now the lowest-risk piece.

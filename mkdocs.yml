@@ -51,6 +51,7 @@ nav:
       - Co-op: game/coop.md
   - Tech:
       - Engine & Prototype Workflow: tech/engine.md
+      - Rebuild Architecture: tech/architecture.md
       - Networking (Co-op): tech/networking.md
   - Project:
       - Open Questions: project/open-questions.md
