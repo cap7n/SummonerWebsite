@@ -16,6 +16,7 @@ You never micro a unit and you never order the army around. Your troops are **on
 
 - **Composition** — which unit types you levelled and summoned at the [Graveyard](game/graveyard.md).
 - **Position** — where you personally stand, because that *is* your commitment.
+- **Spells** — summoners are wizards, and the magic is [hardcore](game/summoner.md#spells): fight-turning if you prepared, and the other half of the power fantasy next to the horde.
 - **The map** — where the shared [caravan](game/caravan.md) goes and which [POIs](game/runs.md) are worth the detour, with four players free to split across a big map under shared vision.
 
 Around that sit six feature pillars: **4-player co-op**, **horde control**, **item equipping & collecting**, **roguelite structure**, **item-based abilities**, and **instance-based maps**. See [Design Pillars](pillars.md) for what each one means and doesn't mean.

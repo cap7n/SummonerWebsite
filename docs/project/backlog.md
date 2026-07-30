@@ -28,16 +28,19 @@ Both blocking spikes are done (`Spikes/NetCrowdSpike`) and the [Architecture](..
 - <span class="pill todo">TODO</span> **Terrain + Crowd Sim + Formation** — the new bubble walks on a heightmap (port the spike's crowd core, add terrain)
 - <span class="pill todo">TODO</span> **Combat system** — two crowds fight; chase cap + defenders-only carried over from the prototype findings
 - <span class="pill todo">TODO</span> **Caravan + Route Graph** — the run's spine and fail state; *the passive-bubble feel test happens here*
+- <span class="pill todo">TODO</span> **Map Generator v0** — noise heightmap + road graph + POI sites ([decided](../game/runs.md#map-generation)); lands alongside caravan/fog
 - Then: Fog → POI → Run Director → Graveyard/Save → Net Sync port (order + reasoning on the [Architecture](../tech/architecture.md) page)
 
 ## Feature pillars, not started
 
+- <span class="pill todo">TODO</span> Spells: answer the [Spells & power questions](open-questions.md#spells--power), then build the first 3 spells
 - <span class="pill todo">TODO</span> Items: decide persistence + two-currency question first ([Items](../game/items.md)), then slot model, then first 5 items
 - <span class="pill todo">TODO</span> Runs: hand-built map pool, map-scale navigation, extraction
 - <span class="pill todo">TODO</span> Co-op: remaining design answers on [Co-op](../game/coop.md) — bubble-bubble rules, downed state, loot, 4-player scaling
 
 ## Done
 
+- <span class="pill done">DONE</span> **Rebuild project skeleton** (`SummonerGame/`): system folders + graybox Hub scene, 4 spawns, player-height reference block — 2026-07-31
 - <span class="pill done">DONE</span> **Troop-sync + crowd-scale spike** (`Spikes/NetCrowdSpike`): 810 agents at ~2 ms sim, per-troop streaming at ~0.2 Mbit/s, identical battle on both peers — 2026-07-30
 - <span class="pill done">DONE</span> **Steam layer on 4.7** (OTR's GodotSteam + Spacewar, 4-member lobby, lobby screen w/ ID + start button) + shareable build in `Summoner builds/` — 2026-07-30
 - <span class="pill done">DONE</span> **First real-internet 2-player test**: stable; host-stutter-on-client fixed (sender-tick jitter buffer) — 2026-07-31

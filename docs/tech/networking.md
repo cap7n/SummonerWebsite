@@ -53,6 +53,7 @@ Measured in the spike, mid-battle, ~810 agents:
 - **Tick rate is 15 Hz, not OTR's 60** — crowds interpolate beautifully at 15 Hz and it quarters the bandwidth.
 - **`StateBuffer` became a per-crowd ring** of packed-array snapshots (one object per entity would be 1000 tiny allocations per second). Linear interpolation is enough so far; OTR's Hermite is the upgrade path if crowds ever look rubbery.
 - **Snapshots are timestamped by sender tick, not receive time** (min-tracked clock offset). Found the hard way in the first real-internet test: receive-time stamping made the host's army stutter on the client, because internet packets arrive in jittery bursts even on a stable connection. Sender-tick stamping restores perfectly even 66.7 ms spacing. This is a rule now, same standing as the two inherited ones above.
+- **No rotation on the wire at all.** Troop facing is derived from motion on the receiving side, and capsule crowds don't visually need it anyway. OTR's nastiest stutter class — rotational jitter — structurally cannot recur for troops; if summoner facing ever syncs, it's one heading byte, not a quaternion.
 - **Steam layer verified on Godot 4.7**: OTR's GodotSteam GDExtension (4.18.1) + Spacewar App ID 480 + friends-only lobby, `SteamMultiplayerPeer` as a drop-in for `ENetMultiplayerPeer` with zero changes to the RPC/snapshot layer. Lobby screen shows the lobby ID + members; host starts the match, late joiners get pulled in.
 
 ## Other things that go on the wire

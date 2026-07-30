@@ -16,6 +16,31 @@ Parked 2026-07-30 along with the whole stretch system — the [bubble is a passi
 
 **Is a passive bubble enough?** With no move orders and no stretching, moment-to-moment play is walking your body around. The bet is that [composition](../game/graveyard.md), the [caravan](../game/caravan.md) and [POI routing](../game/runs.md) carry the tension instead. This is a feel question and it has to be answered in-engine, not in this wiki.
 
+## Spells & power <span class="pill idea">NEW 2026-07-31</span> {#spells--power}
+
+The direction is decided — [summoners are wizards with hardcore spells](../game/summoner.md#spells), power fantasy in bodies *and* magic. Everything else is open:
+
+- **Where do spells come from** — items ([pillar 3](../pillars.md) would stay intact), tombstones/points like units, or their own progression track?
+- **Cost model**: cooldowns, a mana pool, or a horde-coupled resource (souls from kills — thematic, and it links army performance to casting)? How many spells equipped at once?
+- **Targeting**: cast around your body (range-limited, keeps you in the fight) or click-anywhere with the [free camera](../game/summoner.md#camera)? The second turns the unlocked camera into a combat tool — big decision.
+- **Can spells target your own troops** — buffs, heals, raise-dead-mid-fight? And is there friendly fire against allies' crowds?
+- **Do enemies cast too?** Enemy wizards as elite threats or POI bosses would sell the fantasy from the receiving end.
+- **Combat texture — how fast should an even fight resolve?** Total War-style stalemates are probably out (leaning, see [Combat](../game/combat.md)). What replaces attrition: morale/rout, fast time-to-kill, spell breakpoints?
+- **What does *unprepared* look like?** If preparation = power, is failing preparation a slow grind or a collapse? And in co-op: what keeps three less-prepared players relevant next to one powerhouse?
+
+## Map generation <span class="pill idea">NEW 2026-07-31</span> {#map-generation}
+
+[Procgen is decided](../game/runs.md#map-generation); the generator's contract is not:
+
+- **What is guaranteed vs random** — POI count, road connectivity, min/max extraction distance, fairness for 4 spawns?
+- **Seeds**: shareable ("play yesterday's map again with friends")? A daily seed for the community?
+- How much authored variety do POI stamps need before repetition shows — 3 per objective type? 10?
+
+## The hub
+
+- What do the other three players do while one shops at tombstones — ready-up vote to deploy? Can you test your army in the hub (training dummy, arena pit)?
+- Is the hub host-owned (you visit *someone's* graveyard) or does everyone see their own tombstones in a shared space? (Ties into the shared-vs-per-player graveyard question below.)
+
 ## Control & combat
 
 - Chase cap: how far may a fighting troop stray from its slot? (Fix for the melee-scrum issue — [Combat](../game/combat.md).)
@@ -38,7 +63,6 @@ Parked 2026-07-30 along with the whole stretch system — the [bubble is a passi
 - Does the [caravan](../game/caravan.md) auto-advance or move only when told? Different games.
 - Caravan command conflicts at 4 players; caravan speed; what it carries; repair.
 - Summoner death cost, now that the caravan owns the fail state.
-- Map generation: hand-built pool → procedural assembly → full procgen? (Start hand-built.)
 - Session length target, and therefore map size in minutes-of-caravan-travel.
 
 ## Co-op

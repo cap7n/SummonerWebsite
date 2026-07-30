@@ -44,12 +44,21 @@ The reward layer, and the reason maps are big.
     - **Does the map have a boss / final objective,** or does extraction end it?
     - **Do POIs scale with player count?** Four players clearing four POIs simultaneously is a very different difficulty curve from one player doing them in sequence.
 
+## Map generation <span class="pill done">DONE</span> {#map-generation}
+
+Maps are **procedurally generated** (decided 2026-07-31):
+
+- **Noise heightmap terrain.** The tech stack was chosen with no navmesh baking precisely so terrain can be generated freely and cheaply ([Architecture](../tech/architecture.md)) — there is no bake step to pay per map.
+- **Generated road graph.** POI sites scattered with minimum spacing, roads connecting them (spanning tree plus a few loops), the caravan route and extraction placed on the graph. Roads are gameplay: they're what makes routing a visible 4-player argument.
+- **Hand-authored POI stamps.** The POIs themselves are small hand-made layouts stamped onto generated sites — authored quality where the gameplay is, generated variety everywhere else.
+
+Why: hand-building maps is this team's declared weak spot, and generation turns that weakness into replayability — every run gets a fresh map for free. What the generator must *guarantee* versus leave to chance is [open](../project/open-questions.md#map-generation).
+
 ## Still open
 
 !!! warning "Not decided"
 
     - **What persists between runs?** Tombstone levels: yes (that's the meta). Points-in-hand, unlocked units, collected items: undecided — see [Graveyard](graveyard.md). This still gates the [item system](items.md).
-    - **Generation:** hand-built maps from a pool, procedural assembly of hand-built chunks, or full procgen? Start with a pool of hand-built maps — cheapest way to learn what layouts make caravan routing and POI greed interesting.
     - **Map size in real numbers.** "Big" needs a figure once the caravan's speed exists — the map is really measured in *minutes of caravan travel*, not units.
     - **Session length target:** 20 min? 45? Gates map size, POI count, and how much a wipe costs emotionally.
     - **Summoner death.** If the caravan is the fail state, what does dying personally cost — respawn at the caravan, timer, lost troops? At [4 players](coop.md) this doubles as the downed-state answer.

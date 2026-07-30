@@ -6,7 +6,7 @@ The six features Summoner is being built around, plus the working rules. These a
 
 You command an army, but you never micro a unit. Your troops are a **bubble around your summoner** — it follows you, it fights what it touches, and you never order it anywhere. If a feature requires clicking on an individual troop, it's fighting this pillar.
 
-Control is expressed in three places instead: **where you walk**, **what you brought** ([tombstone-summoned unit types](game/graveyard.md)), and **the shared map layer** ([caravan](game/caravan.md) + [POI](game/runs.md) routing).
+Control is expressed in four places instead: **where you walk**, **what you brought** ([tombstone-summoned unit types](game/graveyard.md)), **what you cast** ([spells](game/summoner.md#spells)), and **the shared map layer** ([caravan](game/caravan.md) + [POI](game/runs.md) routing).
 
 ## 2. Co-op native
 
@@ -17,6 +17,8 @@ Cheating is **explicitly not a concern** (private sessions, no ladder), which bu
 ## 3. Items are the power system
 
 There are no classes and no skill trees. **Abilities come from items**: what you collect on a run and choose to equip is what you can do. Equipping is a real decision (slots are scarce), collecting is a real activity (items drop in the world, you have to get them home). See [Items & Equipment](game/items.md).
+
+Since 2026-07-31 summoners are also **wizards with hardcore [spells](game/summoner.md#spells)** — the power fantasy is overwhelming the enemy in bodies *and* magic, if you prepared. Whether spells arrive *as* items (keeping this pillar intact) or as their own track is an [open question](project/open-questions.md#spells--power).
 
 ## 4. Roguelite structure
 

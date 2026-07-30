@@ -34,6 +34,7 @@ Mirror-matched 50v50 fights resolve with realistic variance (winner keeps ~8–1
 !!! warning "Not decided"
     The prototype only proves that fights resolve. The design questions are open:
 
+    - **Combat texture — no stalemates (leaning, 2026-07-31).** Total War-style grinding front lines were considered and probably rejected: the game chases the feeling of **power** — when you've won the setup (composition, [spells](summoner.md#spells), position), the fight should *break*, not grind. What replaces attrition is open: morale/rout, fast time-to-kill, spell-driven breakpoints. See [Open Questions](../project/open-questions.md#spells--power).
     - **Troop types.** Decided in principle — [tombstones](graveyard.md) summon different *kinds* of unit and level them. What the kinds actually are is open. Ranged units break the "contact = combat" simplicity, so that one is a design fork, not a stat.
     - **The summoner in combat.** Targetable? Killable? With the [caravan](caravan.md) as the fail state, summoner death needs its own cost — see [The Summoner](summoner.md).
     - **Retreat.** With no move orders, disengaging is just walking away. Should it cost something (parting shots, pursuit), or is free disengagement the point?

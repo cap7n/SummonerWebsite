@@ -20,6 +20,16 @@ Zoom on wheel, orbit on right-drag, Q/E rotate.
 
 On the [big maps](runs.md), unlocked camera isn't a convenience — it's how you read POI layout, watch the [caravan](caravan.md), and see what your three friends have revealed under [shared fog](runs.md#fog-of-war).
 
+## Spells <span class="pill done">DONE (direction)</span> {#spells}
+
+Decided 2026-07-31: **summoners are wizards, and wizards cast.** The game is not only horde — it's horde *plus* spells, and the spells are **hardcore**.
+
+- The feeling being chased is **power**. If you prepared — levelled the right tombstones, brought the right spells — you get to overwhelm the enemy in bodies *and* in magic.
+- "Hardcore" means spells that matter: fight-turning, screen-visible, worth building a run around. Not a poke on a cooldown.
+- Preparation is the price of that power. Unprepared should feel meaningfully weaker — how much weaker is one of the [open questions](../project/open-questions.md#spells--power).
+
+Everything below the direction is undecided — source of spells (items per [pillar 3](../pillars.md), tombstones, or their own track), costs, count equipped, targeting model, friendly fire, enemy casters. All listed in [Open Questions](../project/open-questions.md#spells--power) for answering.
+
 ## Open <span class="pill idea">IDEA</span>
 
 !!! warning "Not decided"
