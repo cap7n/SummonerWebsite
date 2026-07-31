@@ -18,6 +18,7 @@ Your army travels as a **bubble around your summoner**. That's it — the bubble
 - **The summoner can never end up outside the bubble.** Hard leash, ~0.75 units inside the edge.
 - **Troops walk, they don't teleport** (~5 u/s regroup with per-troop variance; the squad's own travel is exempt so formation keeps up with a sprint).
 - Scatter is random but **relaxed apart** (min separation ~0.85) so it reads as a crowd, not a clump.
+- **Troops never fight for the exact point** (2026-07-31): "arrived" means within ~0.5 u of the slot, approach speed eases in, and per-troop gait varies — the cure for idle shimmer. While marching, nearby troops trade slots so the formation churns like a crowd (polish pending: the trades still read a bit mechanical).
 
 ## What "horde control" means now
 

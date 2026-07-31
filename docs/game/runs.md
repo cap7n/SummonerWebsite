@@ -62,6 +62,7 @@ What actually costs: **generation time** (~0.5 s per million height samples) and
 
 - **Map size is a design decision, not a technical one.** Pick it in *minutes of caravan travel* and the tech will follow.
 - 2 km is a brisk map, 4 km is a big one, 8 km is possible if a run should feel like an expedition. Terrain detail (metres per height sample) trades against generation time independently of map size.
+- **Leaning (2026-07-31): 4 km at 1 m detail** — 64 MB, ~8 s generation, right at the loading budget. To be confirmed once textures exist.
 
 ## Still open
 

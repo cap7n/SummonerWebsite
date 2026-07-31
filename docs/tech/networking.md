@@ -40,6 +40,10 @@ Measured in the spike, mid-battle, ~810 agents:
 | Consistency | **Identical battle end-state on host and client** (same alive counts) |
 | Sim cost (660 owned agents, GDScript) | **~2 ms/frame** |
 | Real internet (Steam, 2 players, 2026-07-31) | Stable connection, correct battle on both screens |
+| Real internet (Steam, **3 players**, 6 min, 2026-07-31) | 144 fps locked, sim ≤ 3 ms, **peak host upload ~1 Mbit/s with 2 clients** (~0.5 Mbit/s each, as predicted) |
+
+!!! note "What the 3-player test forced (2026-07-31)"
+    Godot's built-in server relay didn't deliver client↔client traffic over Steam — clients couldn't see each other. Relay is now **off on every transport**; the **host owns an explicit roster**, forwards client snapshots/kills, and distributes Steam names (which bought name tags for free). Idle armies also send 11-byte heartbeats so receivers' interpolation buffers never starve (the logs showed 60% phantom extrapolation from parked armies; now 0%). Localhost tests now rehearse the exact Steam code path.
 
 **Rejected: shape-sync** (stream the bubble, grow the crowd locally from seeded scatter). Killed by a hard requirement that arrived after it was proposed: **the battle must look exactly the same on every screen** — same troops dying in the same places, even when two players' bubbles fight the same enemy pack. Locally-grown crowds can't guarantee that; one authoritative simulation per crowd can, by construction.
 
