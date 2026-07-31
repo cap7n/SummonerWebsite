@@ -5,7 +5,7 @@ Players start every session in the **graveyard**. It's the safe hub *and* the me
 ## What's decided <span class="pill done">DONE</span>
 
 - The graveyard is the **starting location and the meta hub**. All four players are here between runs.
-- It's a **real shared online space, not a menu** — all four players spawn into it together before a run; the hub *is* the lobby (decided 2026-07-31). A graybox `Hub` scene with the four spawn points exists in the rebuild project (`SummonerGame/scenes/hub/`).
+- It's a **real shared online space, not a menu** — all four players spawn into it together before a run; the hub *is* the lobby (decided 2026-07-31). A graybox `Hub` scene with the four spawn points exists in the game project (`Summoner/scenes/hub/`).
 - It contains **tombstones**. A tombstone is both the upgrade node and the summoning source for a kind of unit.
 - **Points** are the meta currency. You spend points at tombstones to:
     - **Level up** a unit type (make that unit stronger), and

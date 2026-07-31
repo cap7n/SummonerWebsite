@@ -40,7 +40,7 @@ Both blocking spikes are done (`Spikes/NetCrowdSpike`) and the [Architecture](..
 
 ## Done
 
-- <span class="pill done">DONE</span> **Rebuild project skeleton** (`SummonerGame/`): system folders + graybox Hub scene, 4 spawns, player-height reference block — 2026-07-31
+- <span class="pill done">DONE</span> **Rebuild skeleton in the game project**: `systems/` folders + graybox Hub scene, 4 spawns, player-height reference block — 2026-07-31
 - <span class="pill done">DONE</span> **Troop-sync + crowd-scale spike** (`Spikes/NetCrowdSpike`): 810 agents at ~2 ms sim, per-troop streaming at ~0.2 Mbit/s, identical battle on both peers — 2026-07-30
 - <span class="pill done">DONE</span> **Steam layer on 4.7** (OTR's GodotSteam + Spacewar, 4-member lobby, lobby screen w/ ID + start button) + shareable build in `Summoner builds/` — 2026-07-30
 - <span class="pill done">DONE</span> **First real-internet 2-player test**: stable; host-stutter-on-client fixed (sender-tick jitter buffer) — 2026-07-31

@@ -30,7 +30,7 @@ Decided 2026-07-31, after both feasibility spikes passed (see [Spike results](#s
 | 13 | **Net Sync** | Transport + tick + snapshot streaming ([Networking](networking.md)). Already proven in the spike. | 1, 8, 9, 10 |
 | 14 | **Map Generator** | Noise heightmap + POI-site scatter + road-graph generation; applies hand-authored POI stamps. [Decided 2026-07-31](../game/runs.md#map-generation). | Terrain, Route Graph |
 
-The rebuild project lives at `Summoner/SummonerGame/` — one folder per system under `systems/`, plus `scenes/hub/Hub.tscn` (the graybox Graveyard hub with the four player spawns). Map Generator slots into build-order steps 3–5: it's first needed when the caravan wants roads to follow.
+The rebuild lives **inside the main game project** (`Summoner/Summoner/`, alongside the PoC code it gradually replaces) — one folder per system under `systems/`, plus `scenes/hub/Hub.tscn` (the graybox Graveyard hub with the four player spawns). Map Generator slots into build-order steps 3–5: it's first needed when the caravan wants roads to follow.
 
 ## Spike results <span class="pill done">DONE</span> {#spike-results}
 
