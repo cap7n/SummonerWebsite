@@ -15,12 +15,13 @@
 | `Summoner/Summoner Marketing/` | Non-code sibling |
 | `Desktop/OTR/` | **Sibling project** — the 2-player co-op car game whose network stack Summoner reuses ([Networking](networking.md)) |
 
-The PoC repo has two branches, both now **historical**:
+**The PoC gameplay code was trashed on 2026-07-31** (developer's call: "if the old code is useless we can trash it"). What survived the cut, because it wasn't useless:
 
-- **`main`** — click-to-move system only (the original PoC).
-- **`experiment/alt-system`** — the stretch/pod system plus click-to-move behind the **F1 A/B toggle**.
+- `systems/summoner/player.gd` + `rts_camera.gd` — the WASD summoner and the locked/free RTS camera, kept as the starting point of system 6 ([Architecture](architecture.md)).
+- `assets/shaders/grid.gdshader` — may serve the terrain later.
+- **The whole playable PoC is preserved at git tag `poc-final`** — both control schemes behind the F1 toggle, one `git checkout poc-final` away. That's the drawer to reach into if the simplified bubble feels flat.
 
-Both control schemes were [parked on 2026-07-30](../game/bubble.md#parked-prototype-systems) when the bubble was simplified to a passive aura. Keep the branches — the code is the only record of how those systems actually played, and they're the drawer to reach into if the simplified bubble feels flat.
+All branches were collapsed into **`main`** on 2026-07-31 (tests done, vision clear — one line of history now). F5 boots the graybox Graveyard hub (`scenes/hub/Hub.tscn`).
 
 ## Prototype verification workflow
 

@@ -27,13 +27,14 @@ Summoner is at the **proof-of-concept** stage: one Godot project, one test arena
 
 | Area | Status |
 |---|---|
-| Summoner: WASD + sprint, camera-relative | ✅ Working |
-| RTS camera: locked to character / free-roam, orbit, zoom, edge scroll | ✅ Working |
-| Bubble follows summoner, leashed (can never leave you outside) | ✅ Working |
-| 50-troop random scatter with relaxation (no overlaps) | ✅ Working |
-| Troop combat: contact engagement, per-troop HP, melee resolution | ✅ Working |
-| Click-move & stretch/teardrop control schemes | 🅿️ [Parked](game/bubble.md#parked-prototype-systems) — design simplified |
-| Enemy bubble AI | ⬜ Static dummy only |
+| Summoner: WASD + sprint, camera-relative | ✅ Working (kept from PoC, `systems/summoner/`) |
+| RTS camera: locked to character / free-roam, orbit, zoom, edge scroll | ✅ Working (kept from PoC) |
+| Bubble follows summoner; troop combat; crowd at 800+ agents | ✅ Proven (PoC + spike) — PoC code trashed, spike crowd core awaits port |
+| Click-move & stretch/teardrop control schemes | 🅿️ [Parked](game/bubble.md#parked-prototype-systems) — resurrect via `git checkout poc-final` |
+| Graveyard hub scene (graybox, 4 spawns) | 🔨 Started — F5 boots it |
+| Spells (hardcore, power fantasy) | ⬜ Direction decided — [questions open](project/open-questions.md#spells--power) |
+| Procedural maps (heightmap + roads + POI stamps) | ⬜ [Decided](game/runs.md#map-generation), not started |
+| Enemy bubble AI | ⬜ Not started |
 | Graveyard hub, tombstones, point economy | ⬜ Not started — [structure decided](game/graveyard.md) |
 | Caravan (shared command, escort, fail state) | ⬜ Not started — [structure decided](game/caravan.md) |
 | Big RTS maps, fog of war (shared vision), POIs | ⬜ Not started — [structure decided](game/runs.md) |

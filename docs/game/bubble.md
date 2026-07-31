@@ -34,7 +34,7 @@ With the shape locked, control lives in three other places — this is a real sh
 
 ## Parked prototype systems <span class="pill parked">PARKED</span> {#parked-prototype-systems}
 
-Built, working, playable in the `experiment/alt-system` branch, kept for reference:
+Built, working, playable — preserved at git tag `poc-final` (`git checkout poc-final`), kept for reference:
 
 ??? info "System A — Click-move (parked)"
     Left-click sent the whole bubble marching to a spot (gold ring marker, constant march speed, still leashed and speed-capped). On arrival it **parked** and held ground until recalled or re-ordered.
