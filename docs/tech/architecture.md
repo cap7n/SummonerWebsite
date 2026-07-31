@@ -40,6 +40,24 @@ Both rebuild-blocking questions were answered in one isolated project, `Summoner
 - **Streaming consistency** — two instances, quantized 6-byte-per-troop deltas at 15 Hz: **both machines ended the same battle with the identical troop count**, at **~0.2 Mbit/s host upload per client** (~10× under budget).
 - **Steam transport** — OTR's GodotSteam layer (Spacewar App ID 480, friends-only lobby, `SteamMultiplayerPeer`) runs on Godot 4.7 unchanged. First real-internet 2-player session (2026-07-31): stable; one stutter bug found and fixed (sender-tick jitter buffer — see [Networking](networking.md#what-the-spike-changed)).
 
+## Terrain results <span class="pill done">DONE 2026-07-31</span> {#terrain-results}
+
+System 3 is **built** (`systems/terrain/`, with its own isolation harness). Design: one height field is the single source of truth — gameplay samples it via `height_at()`, and the GPU displaces chunk meshes from the same data as a texture, so what the sim thinks and what you see cannot drift apart. Every chunk shares one flat mesh and one material.
+
+Measured on the dev machine, worst case = RTS camera pulled out to 1100 m:
+
+| Map | Cell | Peak tris in frame | Worst frame | Heightmap | Generation |
+|---|---|---|---|---|---|
+| 2 km | 2 m | 2.0 M | 1.4 ms | 4 MB | 0.5 s |
+| 4 km | 2 m | 5.6 M | 2.3 ms | 16 MB | 2.0 s |
+| 8 km | 2 m | 7.7 M | 2.4 ms | 64 MB | 7.9 s |
+| 16 km | 4 m | — | 1.4 ms | 64 MB | 8.4 s |
+
+**Terrain rendering is effectively free** — 2.4 ms is under 15% of a 60 fps budget, on a machine that also has to run 800+ troops. The scaling costs are generation time and memory, both one-off. [Map size is therefore a design question](../game/runs.md#map-size).
+
+!!! note "Two systems were built, measured, and deleted"
+    **Distance LOD** turned out *slower* than no LOD (1695 vs 2056 fps at 4 km) — the GDScript pass over thousands of chunks cost more than the triangles it saved. **Chunk skirts** only existed to hide cracks between LOD levels, so they went with it. What was kept because it is load-bearing: a per-chunk `custom_aabb`, since the engine can't know about displacement done in a vertex shader and will otherwise cull terrain you're looking straight at.
+
 ## Build order
 
 Each step lands as a playable increment:

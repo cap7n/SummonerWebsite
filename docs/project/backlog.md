@@ -25,7 +25,7 @@ The A/B is closed (both schemes [parked](../game/bubble.md#parked-prototype-syst
 
 Both blocking spikes are done (`Spikes/NetCrowdSpike`) and the [Architecture](../tech/architecture.md) page holds the system list and build order. Next up, in order, each landing playable:
 
-- <span class="pill todo">TODO</span> **Terrain + Crowd Sim + Formation** — the new bubble walks on a heightmap (port the spike's crowd core, add terrain)
+- <span class="pill wip">WIP</span> **Terrain ✅ done** ([results](../tech/architecture.md#terrain-results)) — next: **Crowd Sim + Formation** on it (port the spike's crowd core, sample `height_at()`)
 - <span class="pill todo">TODO</span> **Combat system** — two crowds fight; chase cap + defenders-only carried over from the prototype findings
 - <span class="pill todo">TODO</span> **Caravan + Route Graph** — the run's spine and fail state; *the passive-bubble feel test happens here*
 - <span class="pill todo">TODO</span> **Map Generator v0** — noise heightmap + road graph + POI sites ([decided](../game/runs.md#map-generation)); lands alongside caravan/fog

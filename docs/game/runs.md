@@ -54,6 +54,15 @@ Maps are **procedurally generated** (decided 2026-07-31):
 
 Why: hand-building maps is this team's declared weak spot, and generation turns that weakness into replayability — every run gets a fresh map for free. What the generator must *guarantee* versus leave to chance is [open](../project/open-questions.md#map-generation).
 
+### How big can a map be? <span class="pill done">MEASURED 2026-07-31</span> {#map-size}
+
+Built and measured (see [Architecture](../tech/architecture.md#terrain-results)): **an 8 km × 8 km map with 7.7 million triangles on screen costs 2.4 ms a frame.** Rendering is nowhere near the limit at any size this game would want, and no floating-origin/recentering machinery is needed either — the map is centred on the origin and float precision stays sub-millimetre out to several kilometres.
+
+What actually costs: **generation time** (~0.5 s per million height samples) and **memory** (4 bytes per sample). So:
+
+- **Map size is a design decision, not a technical one.** Pick it in *minutes of caravan travel* and the tech will follow.
+- 2 km is a brisk map, 4 km is a big one, 8 km is possible if a run should feel like an expedition. Terrain detail (metres per height sample) trades against generation time independently of map size.
+
 ## Still open
 
 !!! warning "Not decided"

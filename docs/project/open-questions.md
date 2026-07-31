@@ -32,6 +32,7 @@ The direction is decided — [summoners are wizards with hardcore spells](../gam
 
 [Procgen is decided](../game/runs.md#map-generation); the generator's contract is not:
 
+- **How big is a map, in minutes of caravan travel?** The tech no longer constrains this ([measured](../tech/architecture.md#terrain-results)) — it's purely a pacing choice, and it gates POI count and session length.
 - **What is guaranteed vs random** — POI count, road connectivity, min/max extraction distance, fairness for 4 spawns?
 - **Seeds**: shareable ("play yesterday's map again with friends")? A daily seed for the community?
 - How much authored variety do POI stamps need before repetition shows — 3 per objective type? 10?

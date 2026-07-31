@@ -33,7 +33,8 @@ Summoner is at the **proof-of-concept** stage: one Godot project, one test arena
 | Click-move & stretch/teardrop control schemes | 🅿️ [Parked](game/bubble.md#parked-prototype-systems) — resurrect via `git checkout poc-final` |
 | Graveyard hub scene (graybox, 4 spawns) | 🔨 Started — F5 boots it |
 | Spells (hardcore, power fantasy) | ⬜ Direction decided — [questions open](project/open-questions.md#spells--power) |
-| Procedural maps (heightmap + roads + POI stamps) | ⬜ [Decided](game/runs.md#map-generation), not started |
+| Procedural terrain (heightmap, generated + rendered) | ✅ Built — [8 km maps cost 2.4 ms/frame](tech/architecture.md#terrain-results) |
+| Roads, POI stamps, full map generator | ⬜ [Decided](game/runs.md#map-generation), not started |
 | Enemy bubble AI | ⬜ Not started |
 | Graveyard hub, tombstones, point economy | ⬜ Not started — [structure decided](game/graveyard.md) |
 | Caravan (shared command, escort, fail state) | ⬜ Not started — [structure decided](game/caravan.md) |
