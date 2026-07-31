@@ -34,7 +34,7 @@ The rebuild lives **inside the main game project** (`Summoner/Summoner/`, alongs
 
 ## Spike results <span class="pill done">DONE</span> {#spike-results}
 
-Both rebuild-blocking questions were answered in one isolated project, `Summoner/Spikes/NetCrowdSpike` (its README holds the full numbers):
+Both rebuild-blocking questions were answered in a spike project, since **folded into the main project** as `systems/net` + `systems/crowd` (one-project rule) — the netcrowd harness now runs the streamed armies **on generated terrain**:
 
 - **Crowd scale** — ~810 boid agents across four crowds: **~2 ms sim** on the host, 60 fps headroom to spare. GDScript is enough; no C#/GDExtension needed yet.
 - **Streaming consistency** — two instances, quantized 6-byte-per-troop deltas at 15 Hz: **both machines ended the same battle with the identical troop count**, at **~0.2 Mbit/s host upload per client** (~10× under budget).

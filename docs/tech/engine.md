@@ -8,10 +8,12 @@
 
 | Path | What |
 |---|---|
-| `Summoner/Summoner/` | The Godot project (PoC) |
-| `Summoner/Spikes/NetCrowdSpike/` | Isolated spike project: crowd scale + net streaming + Steam layer — all passed ([Architecture](architecture.md#spike-results)) |
-| `Summoner/Summoner builds/` | Shareable builds (currently the spike's friend-test zip) |
+| `Summoner/Summoner/` | **The one game project.** Systems live in `systems/<name>/` with their own test scenes, launched from `scenes/DevMenu.tscn` |
+| `Summoner/Summoner builds/` | **The one shareable build** (`SummonerDev`) — every harness in one exe |
 | `Summoner/SummonerWebsite/` | This wiki |
+
+!!! note "One project, one build (2026-07-31, binding)"
+    Cap7n's rule after two parallel builds caused a "did we lose the multiplayer?" scare: **never split work into side projects or parallel builds.** New systems go into `systems/` with a test scene and a row in the dev launcher; the netcode spike was folded back in the same day (`systems/net` + `systems/crowd`, `Spikes/` folder retired). If something truly needs isolated testing, cap7n will say so explicitly.
 | `Summoner/Summoner Marketing/` | Non-code sibling |
 | `Desktop/OTR/` | **Sibling project** — the 2-player co-op car game whose network stack Summoner reuses ([Networking](networking.md)) |
 
