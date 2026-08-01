@@ -42,6 +42,7 @@ Both blocking spikes are done (`Spikes/NetCrowdSpike`) and the [Architecture](..
 
 ## Done
 
+- <span class="pill done">DONE</span> **Unified Play flow** — lobby → diegetic graveyard hub (15 tombstones: 6 skeleton/3 shield/3 archer/3 mage, 4 spell altars, E to buy/upgrade, Q release, TAB inventory, item bar with live pools + cooldowns) → deploy circle (all in → 3 s countdown) → map. Spells castable 1–4 (fireball / temp summons / heal / +atk buff, ownership-law consistent); ranged units in. End-to-end 2-instance autotest green — 2026-08-01
 - <span class="pill done">DONE</span> **Item system v0** (`systems/items`): 15-grave catalogue (6 summons / 4 spells / 5 mods), respendable point budget from the host pool, 8 slots × 4 grow-upward mod sockets, trading (fake-player stand-in solo, host-arbitrated in sessions), autotested data rules — 2026-08-01
 - <span class="pill done">DONE</span> **First 3-player Steam playtest** + fixes it forced: host-owned roster/forwarding (clients couldn't see each other via transport relay), name tags, idle heartbeat (60% phantom extrapolation → 0%), render-rate summoner + interpolated troops (judder), arrival slack (idle jitter), marching churn, playtest CSV logger — 2026-07-31
 - <span class="pill done">DONE</span> **Rebuild skeleton in the game project**: `systems/` folders + graybox Hub scene, 4 spawns, player-height reference block — 2026-07-31
