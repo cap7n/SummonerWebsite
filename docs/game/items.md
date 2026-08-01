@@ -1,34 +1,39 @@
 # Items & Equipment
 
-Two pillars live here: **item equipping & collecting**, and **item-based abilities**. Nothing is implemented yet — this page records intent and the decisions that need making, so building can start from a real spec instead of a vibe.
+The item system is **decided** (2026-08-01). Your build is your inventory: no classes, no skill trees — what you carry is what you can do, and what you carry is mostly *an army*.
 
-## The intent
+## The model <span class="pill done">DONE</span>
 
-- **No classes, no skill trees.** What you can do is what you carry. Your build *is* your inventory.
-- **You pick starting items at the [Graveyard](graveyard.md)** before deploying — the run's opening draft.
-- **Collecting is physical.** Items exist in the world on a [run](runs.md), often as [POI](runs.md#pois) rewards; you (or your bubble?) have to reach them, and getting them home matters. A great item across the map from the [caravan](caravan.md) is a real dilemma — and if the caravan is what carries loot home, losing it loses the haul too.
-- **Equipping is scarce.** Limited slots force real choices — the roguelite loop's drafting tension, but with objects you went and grabbed rather than menu picks.
-- **Abilities come from items.** Active abilities (castable) and passive modifiers both. An item that changes how the *bubble* behaves (stretch faster, larger area, sever pods…) is the most Summoner-flavoured ability space and probably the first one to explore.
+**Three item variants:**
 
-## Sketch of the space
+| Variant | What it is | Example |
+|---|---|---|
+| **Summoning item** | Holds a unit type with stats. The item *is* a troop pool. | `x/10 Skeletons · regen 1 per 10 s · 10 HP · 10 ATK · 2 DEF · melee` |
+| **Spell item** | A castable or passive spell: range, AoE, effect. Some are temporary summons. | Fireball, ward circle, raise-dead |
+| **Modifier (mod)** | Socketed *under* a summoning or spell item; changes how it works. | +regen, +HP, bigger AoE |
 
-!!! warning "Not decided — everything below is candidate design, not commitment"
+**Slots:** every player has **8 item slots**. Each item slot has **4 mod slots** under it — you only see the top row of 8; dragging a mod over an item grows the panel upward to reveal its mod sockets. Max loadout: 8 items × (1 + 4 mods) = 40 pieces.
 
-    **Item categories that suggest themselves:**
+**Items come from [graves](graveyard.md):** the graveyard has **15 graves**. Buying a grave with points grants its item and **locks that tombstone to you** — no one else can buy it. Spending more points on your grave upgrades its item.
 
-    | Category | Example fantasy | Feeds pillar |
-    |---|---|---|
-    | Bubble mods | +area (bigger army cap), tighter formation, aura effects | Horde control |
-    | Summon items | troops of a type: bruisers, runners, chanters | Horde control / [Graveyard](graveyard.md) |
-    | Summoner actives | dash, rally-shout (snap-regroup), ward circle | Item-based abilities |
-    | Caravan gear | armour, speed, repair kits, extra guards | [Caravan](caravan.md) / party utility |
-    | Trinkets / passives | troop HP, regroup speed, on-kill effects | Roguelite build variety |
+**Items are tradable.** Any item (including mods) can be handed to another player. 15 graves shared by 4 players is fewer than 4 × 8 slots — scarcity and specialisation are the point, and trading is how the party negotiates it.
 
-    **Open questions (the load-bearing ones):**
+**Points** are the one currency ([Graveyard](graveyard.md)): start ~10, spent in the graveyard, **found collectively during runs** — points found by anyone raise *everyone's* total (find 3 in a run → every player has 13 next run, spent individually). This closes the old two-currency worry: there is only points.
 
-    - Who carries an item home — the summoner personally, the bubble engulfing it, or **the [caravan](caravan.md)**? The caravan is the strongest candidate: it makes loot physically at risk and gives the caravan a reason to exist beyond "thing that can die".
-    - Do items persist between runs (collection = meta-progression) or reset (roguelike-pure)? This is the single biggest roguelite structure decision — see [Runs](runs.md).
-    - **Two currencies?** [Tombstone points](graveyard.md) already carry meta-progression. If items persist too, they must progress a *different* axis (unit power vs. player capability) or one of them is noise.
-    - Slot model: paper-doll (head/hand/etc.), generic slots (any 4 items), or size-based bag? 
-    - In [co-op](coop.md): per-player loot or shared pool? Trading? (At **4 players** a shared pool means one grabby friend ends the discussion — instanced drops are the safer default.)
-    - Are ability items *used up*, on cooldown, or channelled by committing troops (spend X troops from the bubble to cast — very on-theme)?
+## Why this shape works
+
+- **Summoning items make composition tangible.** Your army isn't a stat screen — it's eight physical objects, each a pool of bodies with its own regen. Losing troops mid-run and watching an item tick back up is the passive bubble's economy.
+- **Regen-per-item is the pacing knob.** Between-fight recovery speed is itemised, so "sustain build vs burst build" is a real choice.
+- **The graveyard stays the stage.** Graves-as-item-sources keeps meta progression physical and visible — a claimed, levelled grave is a trophy in a shared space.
+- **Trading + collective points make the meta co-op**, matching the [pillars](../pillars.md): the party grows together, then argues about who gets the good grave.
+
+## Still open
+
+!!! warning "Not decided"
+
+    - **Points: respendable budget or consumable currency?** "All 13 to spend each run" reads like a *budget re-allocated every run* (every run is a draft); grave buys that lock permanently read like *purchases*. Which is it — or hybrid (grave claims permanent, upgrades re-allocated)?
+    - **Does a traded item move with its socketed mods,** or must mods be unsocketed first?
+    - **Are all 4 mod slots open from the start,** or do they unlock (per-item upgrade, point cost, item rarity)?
+    - **Do the 15 graves offer fixed items** (the catalogue is the graveyard) **or rotate/randomise** per meta-state?
+    - **Where do run-found items fit** — do POIs drop items directly, or only points? (If items drop, who carries them home — the [caravan](caravan.md) question stands.)
+    - **What happens on party mismatch** — playing with a different group: do your items travel with your profile?

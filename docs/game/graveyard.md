@@ -6,19 +6,18 @@ Players start every session in the **graveyard**. It's the safe hub *and* the me
 
 - The graveyard is the **starting location and the meta hub**. All four players are here between runs.
 - It's a **real shared online space, not a menu** — all four players spawn into it together before a run; the hub *is* the lobby (decided 2026-07-31). A graybox `Hub` scene with the four spawn points exists in the game project (`Summoner/scenes/hub/`).
-- It contains **tombstones**. A tombstone is both the upgrade node and the summoning source for a kind of unit.
-- **Points** are the meta currency. You spend points at tombstones to:
-    - **Level up** a unit type (make that unit stronger), and
-    - **Unlock / summon different kinds of units** (broaden what your bubble can contain).
-- Players also **pick their starting items** here before deploying ([Items](items.md)).
+- It contains **15 graves** (decided 2026-08-01). Buying a grave with points grants its [item](items.md) and **locks that tombstone to the buyer**; spending more points on your grave upgrades its item. A grave is both the upgrade node and (for summoning items) the source of a kind of unit.
+- **Points** are the one meta currency. Players start with ~10, spend them here on buying and upgrading graves, and **find more collectively on runs** — points found by anyone raise everyone's total (find 3 → every player has 13 next run, spent individually).
+- Players carry their loadout in **8 item slots** (each with 4 mod sockets) — see [Items](items.md).
 - Deployment goes from the graveyard into a [run](runs.md) — hub-and-sortie, not a linear chain.
 
 ## The shape of it
 
 ```
 Graveyard (hub, 4 players)
-├── Tombstones ── spend points ── level units / unlock unit types
-├── Starting-item pick
+├── 15 graves ── buy with points ──▶ item + grave locked to you
+│                 spend more     ──▶ upgrade the grave's item
+├── Your loadout: 8 item slots × 4 mod sockets ── tradable with the party
 └── Deploy ──▶ Run: big RTS map, POIs, caravan ──▶ (survive) back to the graveyard
 ```
 
@@ -28,10 +27,9 @@ The fantasy is coherent with the fiction: you're a summoner, your army comes out
 
 !!! warning "Not decided"
 
-    - **Where do points come from?** [POI](runs.md) rewards, caravan survival, kills, run completion — or a mix? Whether points also drop *during* a run (spend mid-run?) or only settle at extraction changes the whole pacing.
-    - **What resets on death?** Tombstone levels are presumably permanent (that's the meta), but points-in-hand, unlocked-but-unsummoned units, and collected items may not be. This is the roguelite line — see [Runs](runs.md).
-    - **Per-player or shared graveyard?** In [4-player co-op](coop.md): does each player own their own tombstones and army, or is the graveyard a shared base everyone upgrades? Shared is warmer and cheaper to build; per-player protects solo progress and lets players specialise.
+    - **Points: respendable budget or consumable currency?** "All 13 to spend each run" reads like a per-run draft budget; permanent grave locks read like purchases. The load-bearing item question — see [Items](items.md).
+    - **Where exactly do points come from on a run?** [POI](runs.md) rewards, caravan survival, kills, extraction — or a mix? Whether they can be spent *mid-run* changes the pacing.
+    - **What resets on death?** Grave locks/levels are presumably permanent (that's the meta); whether a wipe costs points or items is open.
     - **Unit types themselves.** How many, and what axes do they differ on — tanky / fast / ranged / support? Ranged units break the "contact = combat" simplicity of the [bubble](bubble.md), so this is a load-bearing choice, not flavour.
-    - **Is there a point cost to *fielding* an army?** Levelling is one thing; whether summoning a unit into a run also costs points (an army-composition budget per run) is the difference between "power grows forever" and "every run is a draft".
-    - **Are the starting-item picks limited by slots, points, or unlocks?** Ties into [Items](items.md).
+    - **Are the 15 graves one shared graveyard state** (host's world? party save?) or does each player see their own 15? Locking a grave to a player implies one shared state — where does it live and persist?
     - **Does the graveyard have anything to do besides shopping?** A hub you only pass through is a menu with walking. Something that makes it a *place* (a defensible ground, a training dummy, visible progress) is worth designing.

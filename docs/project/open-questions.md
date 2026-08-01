@@ -52,11 +52,15 @@ The direction is decided — [summoners are wizards with hardcore spells](../gam
 
 ## Graveyard & meta
 
-- Where do [points](../game/graveyard.md) come from — POIs, kills, extraction, caravan survival?
-- What resets on a lost run: points-in-hand, unlocked units, collected items? (Tombstone levels persist — that's settled.)
-- **Shared or per-player graveyard** in [co-op](../game/coop.md)?
-- Does fielding an army cost points too (per-run draft), or is levelling the only spend?
-- Two currencies problem: if [items](../game/items.md) persist as well as points, they must progress different axes.
+Settled 2026-08-01: **15 graves, buy-to-lock, points as the single currency, 8 item slots × 4 mod sockets, items tradable** ([Items](../game/items.md), [Graveyard](../game/graveyard.md)). What's left:
+
+- **Points: respendable per-run budget or consumable currency?** The example ("all 13 to spend" next run) suggests a budget; permanent grave locks suggest purchases. Load-bearing for the save format.
+- Where do points come from on a run — POIs, kills, extraction, caravan survival? Spendable mid-run?
+- What resets on a lost run?
+- Does a traded item carry its socketed mods along, or unsocket first?
+- Are all 4 mod sockets open from the start, or unlocked?
+- Do the 15 graves offer a fixed catalogue or rotating/random items?
+- Where does the shared graveyard state live — host's save, party save, steam cloud?
 
 ## Run structure
 
