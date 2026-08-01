@@ -69,6 +69,8 @@ Measured in the spike, mid-battle, ~810 agents:
 | **[POI](../game/runs.md#pois) state** | Low-frequency events (started / progress tick / completed / rewarded). Reliable RPC, not tick state. |
 | **Summoners** | Client-owned via `get_sync_owner_peer_id()` — your own movement is local and lag-free, exactly like OTR's drone. |
 | **Enemies** | Host-authoritative. Same troop-volume problem as friendly bubbles; the spike's answer applies to both. |
+| **Item armies** | **A crowd's wire id IS its item's uid**, and every machine reconciles crowds against the synced item state on every mutation. Trade an item mid-run and the same troops re-bind to the new holder (positions kept, streaming roles swap, immediate keyframe). Found the hard way 2026-08-01: slot-indexed crowd ids left a traded item's units glued to the giver. |
+| **Spell casts** | A cast is a broadcast *intention* (caster, spell id, target, seq); each machine applies the effect to crowds **it owns** — damage/heals stay owner-authoritative, temp-summon crowds mint deterministic ids from caster+seq. Mana/cooldowns are caster-local (no anti-cheat). |
 
 ## Order of work
 
