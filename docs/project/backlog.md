@@ -36,7 +36,7 @@ Both blocking spikes are done (`Spikes/NetCrowdSpike`) and the [Architecture](..
 ## Feature pillars, not started
 
 - <span class="pill todo">TODO</span> Spells: answer the [Spells & power questions](open-questions.md#spells--power), then build the first 3 spells
-- <span class="pill wip">WIP</span> Items: system built 2026-08-01 (`systems/items` — defs catalogue, host-authoritative state, graveyard harness with trading). Next: hook summon items into the crowd (item stats → actual troops), first balance pass on the 15 defs
+- <span class="pill wip">WIP</span> Items: system built + **wired into the character** 2026-08-01 — your crowds now spawn from your equipped summoning items (one crowd per item, per-crowd hp/atk/def from `ItemDefs.resolve`, regen raises troops at the summoner's feet via a reliable revive event). Next: balance pass on the 15 defs + enemy scaling; the hub's real 3-D tombstones replace the harness list later (same `Items` API)
 - <span class="pill todo">TODO</span> Runs: hand-built map pool, map-scale navigation, extraction
 - <span class="pill todo">TODO</span> Co-op: remaining design answers on [Co-op](../game/coop.md) — bubble-bubble rules, downed state, loot, 4-player scaling
 
