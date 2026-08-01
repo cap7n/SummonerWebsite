@@ -16,7 +16,7 @@ The item system is **decided** (2026-08-01). Your build is your inventory: no cl
 
 **Items come from [graves](graveyard.md):** the graveyard has **15 graves**. Buying a grave with points grants its item and **locks that tombstone to you** — no one else can buy it. Spending more points on your grave upgrades its item.
 
-**The 15 graves + 4 altars (decided 2026-08-01):** 6× **Skeletons** (10 melee bones each — buy three graves, walk with 30), 3× **Shield Skeletons** (tanky), 3× **Archer Skeletons** (ranged), 3× **Mage Skeletons** (long-range glass). Four **altars** hold the active spells: **Fireball**, **Bone Harvest** (10 temporary uncontrollable skeletons at a point), **Mend Bones** (heal), **War Cry** (+attack). **No mod graves in the hub yet** — mods arrive later (drops/rewards). Ranged units are in: the "contact = combat" fork was taken.
+**The 15 graves + 4 altars (decided 2026-08-01):** 6× **Skeletons** (10 melee bones each — buy three graves, walk with 30), 3× **Shield Skeletons** (tanky), 3× **Archer Skeletons** (ranged), 3× **Mage Skeletons** (long-range glass). Four **altars** hold the active spells: **Fireball**, **Bone Harvest** (10 temporary uncontrollable skeletons at a point), **Mend Bones** (heal), **War Cry** (+attack). Casting costs **mana** (pool 100, regen 4/s) on top of cooldowns — the anti-spam budget. **No mod graves in the hub yet** — mods arrive later (drops/rewards). Ranged units are in: the "contact = combat" fork was taken.
 
 **Items are tradable.** Any item (including mods) can be handed to another player. 15 graves shared by 4 players is fewer than 4 × 8 slots — scarcity and specialisation are the point, and trading is how the party negotiates it.
 
