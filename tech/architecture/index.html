@@ -1,0 +1,1380 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Design wiki and single point of truth for Summoner, a 4-player co-op horde-control roguelite built in Godot.">
+      
+      
+      
+        <link rel="canonical" href="https://cap7n.github.io/SummonerWebsite/tech/architecture/">
+      
+      
+        <link rel="prev" href="../engine/">
+      
+      
+        <link rel="next" href="../networking/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Rebuild Architecture - Summoner Design Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rebuild-architecture-systems" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Summoner Design Wiki" class="md-header__button md-logo" aria-label="Summoner Design Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Summoner Design Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Rebuild Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cap7n/SummonerWebsite" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Summoner Design Wiki" class="md-nav__button md-logo" aria-label="Summoner Design Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Summoner Design Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cap7n/SummonerWebsite" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pillars/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Pillars
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The Game
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    The Game
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../game/bubble/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The Bubble (Horde Control)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../game/summoner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The Summoner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../game/graveyard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The Graveyard (Hub & Meta)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../game/caravan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The Caravan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../game/combat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../game/items/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Items & Equipment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../game/runs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runs, Maps & the Roguelite Loop
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../game/coop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Co-op
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tech
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tech
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../engine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engine & Prototype Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rebuild Architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rebuild Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ground-rules-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ground rules DONE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The systems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spike-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spike results DONE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terrain-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terrain results DONE 2026-07-31
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build order
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking (Co-op)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/open-questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Open Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/backlog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backlog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/decisions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decision Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/how-to-edit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Edit This Wiki
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ground-rules-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ground rules DONE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The systems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spike-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spike results DONE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terrain-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terrain results DONE 2026-07-31
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build order
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/cap7n/SummonerWebsite/edit/main/docs/tech/architecture.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="rebuild-architecture-systems">Rebuild Architecture (Systems)<a class="headerlink" href="#rebuild-architecture-systems" title="Permanent link">&para;</a></h1>
+<p>The rebuild is <strong>not</strong> "the PoC but tidier". It's a set of <strong>systems that work in isolation and are connected together</strong> — each one lives in its own folder, has its own test scene, and talks to the rest only through explicit interfaces and events. If a system can't demo alone in its harness scene, its boundary is wrong.</p>
+<p>Decided 2026-07-31, after both feasibility spikes passed (see <a href="#spike-results">Spike results</a>).</p>
+<h2 id="ground-rules-done">Ground rules <span class="pill done">DONE</span><a class="headerlink" href="#ground-rules-done" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Troops are data, not nodes.</strong> Positions/velocities/HP live in packed arrays, neighbour queries go through a spatial grid, rendering is one MultiMesh per crowd. No physics bodies, no per-troop scene nodes. Measured: ~2 ms/frame for 660 simulated agents in plain GDScript.</li>
+<li><strong>Boids + heightmap + local avoidance instead of pathfinding.</strong> Troops never navigate alone — they follow a summoner or a caravan, which is a <em>local</em> steering problem. No navmesh baking anywhere. The few long-range movers (caravan, enemy packs) follow a small authored <strong>route/road graph</strong> (A* over dozens of nodes, not thousands of polygons).</li>
+<li><strong>The ownership law.</strong> Every crowd, the caravan, and each summoner has exactly <strong>one simulating owner peer</strong>; everyone else renders its stream. Your machine simulates <em>your</em> bubble (zero input lag), the host simulates the world. This is what makes the battle look identical on every screen — and it's the "use all the computers" idea done the sane way (partition by ownership, never split one simulation).</li>
+<li><strong>Events that could cross a wire.</strong> Systems communicate through signals/events shaped like network messages from day one, so the multiplayer port is plumbing, not surgery. Inherited OTR rules apply (<a href="../networking/">Networking</a>).</li>
+</ul>
+<h2 id="the-systems">The systems<a class="headerlink" href="#the-systems" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>System</th>
+<th>One-line job</th>
+<th>Depends on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Crowd Sim</strong></td>
+<td>Boids as data: arrays + spatial grid + MultiMesh. Input: an anchor + slot layout. Output: positions.</td>
+<td>Terrain</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Formation</strong></td>
+<td>Pure function: count + radius → scattered slot offsets (golden-angle spiral + jitter). The "bubble" is just this.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Terrain</strong></td>
+<td>Heightmap: <code>height_at()</code>, <code>slope_at()</code>, avoidance field from obstacles.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Combat</strong></td>
+<td>Contact detection, targeting (chase cap, defenders-only), HP, kill events.</td>
+<td>Crowd Sim</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Unit Defs</strong></td>
+<td><code>.tres</code> Resources: stats, visuals, tombstone-level scaling. Data only.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Summoner + Camera</strong></td>
+<td>Exists in the PoC, mostly survives as-is.</td>
+<td>Terrain</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Route Graph</strong></td>
+<td>Tiny A* over authored road nodes, for the few long-range movers.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Caravan</strong></td>
+<td>Follows routes, takes orders, has HP, emits "I died" (= run over).</td>
+<td>Route Graph</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Fog of War</strong></td>
+<td>Vision sources → shared coverage texture → terrain shader. One state for all players.</td>
+<td>Terrain</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>POI / Objectives</strong></td>
+<td>Trigger areas + objective state machine + reward events.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>Run Director</strong></td>
+<td>The state machine: hub → deploy → play → extract/fail. Pure glue, listens to events.</td>
+<td>everything above</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>Meta / Save</strong></td>
+<td>Tombstones, points, save file, graveyard hub scene.</td>
+<td>Unit Defs</td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>Net Sync</strong></td>
+<td>Transport + tick + snapshot streaming (<a href="../networking/">Networking</a>). Already proven in the spike.</td>
+<td>1, 8, 9, 10</td>
+</tr>
+<tr>
+<td>14</td>
+<td><strong>Map Generator</strong></td>
+<td>Noise heightmap + POI-site scatter + road-graph generation; applies hand-authored POI stamps. <a href="../../game/runs/#map-generation">Decided 2026-07-31</a>.</td>
+<td>Terrain, Route Graph</td>
+</tr>
+</tbody>
+</table>
+<p>The rebuild lives <strong>inside the main game project</strong> (<code>Summoner/Summoner/</code>, alongside the PoC code it gradually replaces) — one folder per system under <code>systems/</code>, plus <code>scenes/hub/Hub.tscn</code> (the graybox Graveyard hub with the four player spawns). Map Generator slots into build-order steps 3–5: it's first needed when the caravan wants roads to follow.</p>
+<h2 id="spike-results">Spike results <span class="pill done">DONE</span><a class="headerlink" href="#spike-results" title="Permanent link">&para;</a></h2>
+<p>Both rebuild-blocking questions were answered in a spike project, since <strong>folded into the main project</strong> as <code>systems/net</code> + <code>systems/crowd</code> (one-project rule) — the netcrowd harness now runs the streamed armies <strong>on generated terrain</strong>:</p>
+<ul>
+<li><strong>Crowd scale</strong> — ~810 boid agents across four crowds: <strong>~2 ms sim</strong> on the host, 60 fps headroom to spare. GDScript is enough; no C#/GDExtension needed yet.</li>
+<li><strong>Streaming consistency</strong> — two instances, quantized 6-byte-per-troop deltas at 15 Hz: <strong>both machines ended the same battle with the identical troop count</strong>, at <strong>~0.2 Mbit/s host upload per client</strong> (~10× under budget).</li>
+<li><strong>Steam transport</strong> — OTR's GodotSteam layer (Spacewar App ID 480, friends-only lobby, <code>SteamMultiplayerPeer</code>) runs on Godot 4.7 unchanged. First real-internet 2-player session (2026-07-31): stable; one stutter bug found and fixed (sender-tick jitter buffer — see <a href="../networking/#what-the-spike-changed">Networking</a>).</li>
+</ul>
+<h2 id="terrain-results">Terrain results <span class="pill done">DONE 2026-07-31</span><a class="headerlink" href="#terrain-results" title="Permanent link">&para;</a></h2>
+<p>System 3 is <strong>built</strong> (<code>systems/terrain/</code>, with its own isolation harness). Design: one height field is the single source of truth — gameplay samples it via <code>height_at()</code>, and the GPU displaces chunk meshes from the same data as a texture, so what the sim thinks and what you see cannot drift apart. Every chunk shares one flat mesh and one material.</p>
+<p>Measured on the dev machine, worst case = RTS camera pulled out to 1100 m:</p>
+<table>
+<thead>
+<tr>
+<th>Map</th>
+<th>Cell</th>
+<th>Peak tris in frame</th>
+<th>Worst frame</th>
+<th>Heightmap</th>
+<th>Generation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2 km</td>
+<td>2 m</td>
+<td>2.0 M</td>
+<td>1.4 ms</td>
+<td>4 MB</td>
+<td>0.5 s</td>
+</tr>
+<tr>
+<td>4 km</td>
+<td>2 m</td>
+<td>5.6 M</td>
+<td>2.3 ms</td>
+<td>16 MB</td>
+<td>2.0 s</td>
+</tr>
+<tr>
+<td>8 km</td>
+<td>2 m</td>
+<td>7.7 M</td>
+<td>2.4 ms</td>
+<td>64 MB</td>
+<td>7.9 s</td>
+</tr>
+<tr>
+<td>16 km</td>
+<td>4 m</td>
+<td>—</td>
+<td>1.4 ms</td>
+<td>64 MB</td>
+<td>8.4 s</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Terrain rendering is effectively free</strong> — 2.4 ms is under 15% of a 60 fps budget, on a machine that also has to run 800+ troops. The scaling costs are generation time and memory, both one-off. <a href="../../game/runs/#map-size">Map size is therefore a design question</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Two systems were built, measured, and deleted</p>
+<p><strong>Distance LOD</strong> turned out <em>slower</em> than no LOD (1695 vs 2056 fps at 4 km) — the GDScript pass over thousands of chunks cost more than the triangles it saved. <strong>Chunk skirts</strong> only existed to hide cracks between LOD levels, so they went with it. What was kept because it is load-bearing: a per-chunk <code>custom_aabb</code>, since the engine can't know about displacement done in a vertex shader and will otherwise cull terrain you're looking straight at.</p>
+</div>
+<h2 id="build-order">Build order<a class="headerlink" href="#build-order" title="Permanent link">&para;</a></h2>
+<p>Each step lands as a playable increment:</p>
+<ol>
+<li><strong>Terrain + Crowd Sim + Formation</strong> — the new bubble walks on hills. Replaces the PoC's core.</li>
+<li><strong>Combat</strong> — two crowds fight, with the chase cap and defenders-only rules the prototype taught us.</li>
+<li><strong>Caravan + Route Graph</strong> — the run has a spine and a fail state. <em>This is the moment to feel-test the passive bubble for real.</em></li>
+<li><strong>Fog of War</strong> — the map becomes readable/unknown.</li>
+<li><strong>POI / Objectives</strong> — one type, end-to-end, reward included.</li>
+<li><strong>Run Director</strong> — win/lose/extract stops being an HUD label.</li>
+<li><strong>Meta / Save + Graveyard scene</strong> — the loop closes.</li>
+<li><strong>Net Sync port</strong> — last and lowest-risk: the spike already proved the payload, the transport, and the interpolation; every system above will have carried an owner-peer field from day one.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Why networking goes last even though it's proven</p>
+<p>The spike de-risked the <em>hard</em> part (scale, consistency, bandwidth, Steam). What remains is wiring — and wiring wants stable systems to wire. Building each system with the ownership law and event-shaped boundaries keeps the port cheap; building the port first would freeze system interfaces before they've earned their shape.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../engine/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Engine &amp; Prototype Workflow">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Engine & Prototype Workflow
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../networking/" class="md-footer__link md-footer__link--next" aria-label="Next: Networking (Co-op)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Networking (Co-op)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.action.edit", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
