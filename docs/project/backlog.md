@@ -36,12 +36,13 @@ Both blocking spikes are done (`Spikes/NetCrowdSpike`) and the [Architecture](..
 ## Feature pillars, not started
 
 - <span class="pill todo">TODO</span> Spells: answer the [Spells & power questions](open-questions.md#spells--power), then build the first 3 spells
-- <span class="pill todo">TODO</span> Items: decide persistence + two-currency question first ([Items](../game/items.md)), then slot model, then first 5 items
+- <span class="pill wip">WIP</span> Items: system built 2026-08-01 (`systems/items` — defs catalogue, host-authoritative state, graveyard harness with trading). Next: hook summon items into the crowd (item stats → actual troops), first balance pass on the 15 defs
 - <span class="pill todo">TODO</span> Runs: hand-built map pool, map-scale navigation, extraction
 - <span class="pill todo">TODO</span> Co-op: remaining design answers on [Co-op](../game/coop.md) — bubble-bubble rules, downed state, loot, 4-player scaling
 
 ## Done
 
+- <span class="pill done">DONE</span> **Item system v0** (`systems/items`): 15-grave catalogue (6 summons / 4 spells / 5 mods), respendable point budget from the host pool, 8 slots × 4 grow-upward mod sockets, trading (fake-player stand-in solo, host-arbitrated in sessions), autotested data rules — 2026-08-01
 - <span class="pill done">DONE</span> **First 3-player Steam playtest** + fixes it forced: host-owned roster/forwarding (clients couldn't see each other via transport relay), name tags, idle heartbeat (60% phantom extrapolation → 0%), render-rate summoner + interpolated troops (judder), arrival slack (idle jitter), marching churn, playtest CSV logger — 2026-07-31
 - <span class="pill done">DONE</span> **Rebuild skeleton in the game project**: `systems/` folders + graybox Hub scene, 4 spawns, player-height reference block — 2026-07-31
 - <span class="pill done">DONE</span> **Troop-sync + crowd-scale spike** (`Spikes/NetCrowdSpike`): 810 agents at ~2 ms sim, per-troop streaming at ~0.2 Mbit/s, identical battle on both peers — 2026-07-30
