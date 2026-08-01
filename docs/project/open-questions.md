@@ -52,15 +52,14 @@ The direction is decided — [summoners are wizards with hardcore spells](../gam
 
 ## Graveyard & meta
 
-Settled 2026-08-01: **15 graves, buy-to-lock, points as the single currency, 8 item slots × 4 mod sockets, items tradable** ([Items](../game/items.md), [Graveyard](../game/graveyard.md)). What's left:
+Settled 2026-08-01: **15 graves, buy-to-lock, points as the single currency, 8 item slots × 4 mod sockets, items tradable.** Points are a **respendable per-run budget** (every run is a draft, no permanent point meta) drawn from a **host-owned shared pool** copied to every player; mods and items trade freely, not bound to each other ([Items](../game/items.md), [Graveyard](../game/graveyard.md)). What's left:
 
-- **Points: respendable per-run budget or consumable currency?** The example ("all 13 to spend" next run) suggests a budget; permanent grave locks suggest purchases. Load-bearing for the save format.
 - Where do points come from on a run — POIs, kills, extraction, caravan survival? Spendable mid-run?
 - What resets on a lost run?
-- Does a traded item carry its socketed mods along, or unsocket first?
 - Are all 4 mod sockets open from the start, or unlocked?
 - Do the 15 graves offer a fixed catalogue or rotating/random items?
-- Where does the shared graveyard state live — host's save, party save, steam cloud?
+- **Permanent unlocks**: which world finds persist in the graveyard (merchant, extra graves, unit types)? This is the meta-progression axis now that points respend.
+- **Maybe explore: persistent characters** — the host-pool model means progress lives in the host's lobby; deliberate experiment, revisit after playtests.
 
 ## Run structure
 

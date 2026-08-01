@@ -18,7 +18,9 @@ The item system is **decided** (2026-08-01). Your build is your inventory: no cl
 
 **Items are tradable.** Any item (including mods) can be handed to another player. 15 graves shared by 4 players is fewer than 4 × 8 slots — scarcity and specialisation are the point, and trading is how the party negotiates it.
 
-**Points** are the one currency ([Graveyard](graveyard.md)): start ~10, spent in the graveyard, **found collectively during runs** — points found by anyone raise *everyone's* total (find 3 in a run → every player has 13 next run, spent individually). This closes the old two-currency worry: there is only points.
+**Points** are the one currency ([Graveyard](graveyard.md)), and they are a **respendable budget, not a consumable** (decided 2026-08-01): every run you re-allocate your full total in the graveyard — every run is a draft. The pool is **host-owned and shared**: the host's lobby has one point total, copied to every player (host's world collected 20 → everyone has 20 to spend individually). Points found by anyone on a run raise the pool. So points carry **no permanent per-player meta progression** — permanence comes from elsewhere: things found in the world that then *stay* in the graveyard (e.g. a rescued merchant who sets up shop at the start of your runs).
+
+**Mods and items are not locked to each other** — both trade freely as separate objects; socketing is just an arrangement, not a bond.
 
 ## Why this shape works
 
@@ -31,9 +33,8 @@ The item system is **decided** (2026-08-01). Your build is your inventory: no cl
 
 !!! warning "Not decided"
 
-    - **Points: respendable budget or consumable currency?** "All 13 to spend each run" reads like a *budget re-allocated every run* (every run is a draft); grave buys that lock permanently read like *purchases*. Which is it — or hybrid (grave claims permanent, upgrades re-allocated)?
-    - **Does a traded item move with its socketed mods,** or must mods be unsocketed first?
     - **Are all 4 mod slots open from the start,** or do they unlock (per-item upgrade, point cost, item rarity)?
     - **Do the 15 graves offer fixed items** (the catalogue is the graveyard) **or rotate/randomise** per meta-state?
     - **Where do run-found items fit** — do POIs drop items directly, or only points? (If items drop, who carries them home — the [caravan](caravan.md) question stands.)
-    - **What happens on party mismatch** — playing with a different group: do your items travel with your profile?
+    - **Permanent unlocks**: which world finds persist in the graveyard (merchant, extra graves, new unit types)? This is now the whole meta-progression axis, since points respend.
+    - **Maybe explore: persistent characters.** The host-owned shared pool means your progress lives in your friend's lobby, not with you. Flagged as a deliberate experiment (colleague's call) — revisit after playtests whether per-player persistent characters/profiles feel better.
